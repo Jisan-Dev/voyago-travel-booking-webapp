@@ -28,16 +28,10 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
     checkout: checkout || "",
   });
 
-  console.log("searchterm", searchTerm);
-
-  const [allowSearch, setAllowSearch] = useState(true);
-
   const handleInputs = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
     const { name, value } = e.target;
 
     const state = { ...searchTerm, [name]: value };
-
-    setAllowSearch(isValidSearch(state));
 
     setSearchTerm(state);
   };
@@ -47,6 +41,8 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
     if (!searchState.checkin || !searchState.checkout) return false;
     return new Date(searchState.checkin).getTime() <= new Date(searchState.checkout).getTime();
   };
+
+  const allowSearch = isValidSearch(searchTerm);
 
   const handleSearch = () => {
     const params = new URLSearchParams(searchParams);

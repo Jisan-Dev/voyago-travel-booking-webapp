@@ -31,7 +31,7 @@ export function DatePickerDemo({
         }));
       }
     }
-  }, [date, mode, setState]);
+  }, [date, setDate]);
 
   return (
     <Popover>
