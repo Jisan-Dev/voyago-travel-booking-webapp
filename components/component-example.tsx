@@ -427,7 +427,7 @@ function FormExample() {
             <FieldGroup>
               <div className="grid grid-cols-2 gap-4">
                 <Field>
-                  <FieldLabel htmlFor="small-form-name">Name</FieldLabel>
+                  <FieldLabel htmlhtmlFor"small-form-name">Name</FieldLabel>
                   <Input
                     id="small-form-name"
                     placeholder="Enter your name"
@@ -435,7 +435,7 @@ function FormExample() {
                   />
                 </Field>
                 <Field>
-                  <FieldLabel htmlFor="small-form-role">Role</FieldLabel>
+                  <FieldLabel htmlhtmlFor"small-form-role">Role</FieldLabel>
                   <Select defaultValue="">
                     <SelectTrigger id="small-form-role">
                       <SelectValue placeholder="Select a role" />
@@ -452,7 +452,7 @@ function FormExample() {
                 </Field>
               </div>
               <Field>
-                <FieldLabel htmlFor="small-form-framework">
+                <FieldLabel htmlhtmlFor"small-form-framework">
                   Framework
                 </FieldLabel>
                 <Combobox items={frameworks}>
@@ -474,7 +474,7 @@ function FormExample() {
                 </Combobox>
               </Field>
               <Field>
-                <FieldLabel htmlFor="small-form-comments">Comments</FieldLabel>
+                <FieldLabel htmlhtmlFor"small-form-comments">Comments</FieldLabel>
                 <Textarea
                   id="small-form-comments"
                   placeholder="Add any additional comments"

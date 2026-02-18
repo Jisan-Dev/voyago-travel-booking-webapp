@@ -74,8 +74,8 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
         <div id="searchParams" className={`${fromList && "shadow-none!"}`}>
           <div>
             <span>Destination</span>
-            <Select onValueChange={handleDestinationChange}>
-              <SelectTrigger className="w-full bg-transparent justify-between text-left font-normal py-5 border-neutral-900/40 mt-2">
+            <Select onValueChange={handleDestinationChange} defaultValue={searchTerm.destination}>
+              <SelectTrigger className="w-full bg-transparent justify-between text-left font-normal py-5 border-neutral-900/40 mt-2 cursor-pointer">
                 <SelectValue placeholder="Select a destination" />
               </SelectTrigger>
               <SelectContent>
@@ -98,35 +98,23 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
 
           <div>
             <span>Check in</span>
-            {/* <h4 className="mt-2">
-              <input
-                type="date"
-                name="checkin"
-                id="checkin"
-                value={searchTerm.checkin}
-                onChange={handleInputs}
-                className="w-full border rounded-lg focus:outline-none"
-              />
-            </h4> */}
             <div className="mt-2">
-              <DatePickerDemo setState={setSearchTerm} mode="checkin" />
+              <DatePickerDemo
+                setState={setSearchTerm}
+                mode="checkin"
+                defaultVal={searchTerm.checkin}
+              />
             </div>
           </div>
 
           <div>
             <span>Checkout</span>
-            {/* <h4 className="mt-2">
-              <input
-                type="date"
-                name="checkout"
-                id="checkout"
-                value={searchTerm.checkout}
-                onChange={handleInputs}
-                className="w-full border rounded-lg focus:outline-none"
-              />
-            </h4> */}
             <div className="mt-2">
-              <DatePickerDemo setState={setSearchTerm} mode="checkout" />
+              <DatePickerDemo
+                setState={setSearchTerm}
+                mode="checkout"
+                defaultVal={searchTerm.checkout}
+              />
             </div>
           </div>
         </div>

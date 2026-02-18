@@ -11,11 +11,15 @@ import { SearchTerm } from "./search/search";
 export function DatePickerDemo({
   setState,
   mode = "checkin",
+  defaultVal,
 }: {
   setState: (state: React.SetStateAction<SearchTerm>) => void;
   mode?: string;
+  defaultVal?: string;
 }) {
-  const [date, setDate] = React.useState<Date>();
+  const initialDate =
+    defaultVal && !isNaN(new Date(defaultVal).getTime()) ? new Date(defaultVal) : undefined;
+  const [date, setDate] = React.useState<Date | undefined>(initialDate);
 
   React.useEffect(() => {
     if (date) {
@@ -37,16 +41,22 @@ export function DatePickerDemo({
     <Popover>
       <PopoverTrigger asChild>
         <Button
-          variant="outline"
+          // variant="outline"
           data-empty={!date}
-          className="data-[empty=true]:text-muted-foreground w-full bg-transparent justify-between text-left font-normal py-5 border-neutral-900/40"
+          className="data-[empty=true]:text-muted-foreground w-full bg-transparent justify-between text-left font-normal py-5 border-neutral-900/40 cursor-pointer text-black"
         >
-          {date ? format(date, "PPP") : <span>Pick a date</span>}
+          {date && date ? format(date, "PPP") : <span>Pick a date</span>}
           <Calendar1Icon />
         </Button>
       </PopoverTrigger>
       <PopoverContent className="w-auto p-0" align="start">
-        <Calendar mode="single" selected={date} onSelect={setDate} defaultMonth={date} />
+        <Calendar
+          mode="single"
+          selected={date}
+          onSelect={setDate}
+          defaultMonth={date}
+          required={true}
+        />
       </PopoverContent>
     </Popover>
   );
