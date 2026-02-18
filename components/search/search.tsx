@@ -1,7 +1,16 @@
 "use client";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectLabel,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, useState } from "react";
+import { useState } from "react";
 import { DatePickerDemo } from "../day-picker";
 
 type Props = {
@@ -28,12 +37,11 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
     checkout: checkout || "",
   });
 
-  const handleInputs = (e: ChangeEvent<HTMLSelectElement | HTMLInputElement>) => {
-    const { name, value } = e.target;
-
-    const state = { ...searchTerm, [name]: value };
-
-    setSearchTerm(state);
+  const handleDestinationChange = (value: string) => {
+    setSearchTerm((prev) => ({
+      ...prev,
+      destination: value,
+    }));
   };
 
   const isValidSearch = (searchState: typeof searchTerm) => {
@@ -66,49 +74,26 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
         <div id="searchParams" className={`${fromList && "shadow-none!"}`}>
           <div>
             <span>Destination</span>
-            <h4 className="mt-2">
-              <select
-                name="destination"
-                id="destination"
-                value={searchTerm.destination}
-                onChange={handleInputs}
-                className="w-full border rounded-lg focus:outline-none  transition-colors cursor-pointer"
-              >
-                <option value="" className="text-black">
-                  Select destination{" "}
-                </option>
-                <option value="Puglia" className="text-black">
-                  Puglia
-                </option>
-                <option value="Frejus" className="text-black">
-                  Frejus
-                </option>
-                <option value="Kerkira" className="text-black">
-                  Kerkira
-                </option>
-                <option value="Karlovasi" className="text-black">
-                  Karlovasi
-                </option>
-                <option value="Saint-Denis" className="text-black">
-                  Saint-Denis
-                </option>
-                <option value="Cergy" className="text-black">
-                  Cergy
-                </option>
-                <option value="Paris" className="text-black">
-                  Paris
-                </option>
-                <option value="Le Pré-Saint-Gervais" className="text-black">
-                  Le Pré-Saint-Gervais
-                </option>
-                <option value="Calvi" className="text-black">
-                  Calvi
-                </option>
-                <option value="Catania" className="text-black">
-                  Catania
-                </option>
-              </select>
-            </h4>
+            <Select onValueChange={handleDestinationChange}>
+              <SelectTrigger className="w-full bg-transparent justify-between text-left font-normal py-5 border-neutral-900/40 mt-2">
+                <SelectValue placeholder="Select a destination" />
+              </SelectTrigger>
+              <SelectContent>
+                <SelectGroup>
+                  <SelectLabel>Destinations</SelectLabel>
+                  <SelectItem value="Puglia">Puglia</SelectItem>
+                  <SelectItem value="Frejus">Frejus</SelectItem>
+                  <SelectItem value="Kerkira">Kerkira</SelectItem>
+                  <SelectItem value="Karlovasi">Karlovasi</SelectItem>
+                  <SelectItem value="Saint-Denis">Saint-Denis</SelectItem>
+                  <SelectItem value="Cergy">Cergy</SelectItem>
+                  <SelectItem value="Paris">Paris</SelectItem>
+                  <SelectItem value="Le Pré-Saint-Gervais">Le Pré-Saint-Gervais</SelectItem>
+                  <SelectItem value="Calvi">Calvi</SelectItem>
+                  <SelectItem value="Catania">Catania</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
 
           <div>
