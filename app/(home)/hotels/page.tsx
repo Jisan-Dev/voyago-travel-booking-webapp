@@ -1,4 +1,5 @@
 import Filter from "@/components/filter";
+import HotelList from "@/components/hotel/hotel-list";
 import Search from "@/components/search/search";
 
 const refinedCategory = (category: string) => {
@@ -30,14 +31,14 @@ const HotelListPage = async ({ searchParams }: HotelListPageProps) => {
       <section className="py-12">
         <div className="container grid grid-cols-12">
           <Filter />
-          {/* <HotelList
+          <HotelList
             destination={destination}
             checkin={checkin}
             checkout={checkout}
             category={refinedCategory(category)}
             price={decodeURI(price)}
             sort={sort}
-          /> */}
+          />
         </div>
       </section>
     </>
