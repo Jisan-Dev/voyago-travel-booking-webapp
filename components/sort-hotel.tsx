@@ -28,8 +28,9 @@ const SortHotel = () => {
     <div>
       <h3 className="font-bold text-lg">Sort By</h3>
       <form action="" className="flex flex-col gap-2 mt-2">
-        <label htmlFor="highToLow">
+        <label htmlFor="highToLow" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             type="radio"
             name="sort"
             id="highToLow"
@@ -40,8 +41,9 @@ const SortHotel = () => {
           Price High to Low
         </label>
 
-        <label htmlFor="lowToHigh">
+        <label htmlFor="lowToHigh" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             type="radio"
             name="sort"
             id="lowToHigh"

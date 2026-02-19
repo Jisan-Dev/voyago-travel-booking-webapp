@@ -43,8 +43,9 @@ const FilterByPriceRange = () => {
     <div>
       <h3 className="font-bold text-lg">Price Range</h3>
       <form action="" className="flex flex-col gap-2 mt-2">
-        <label htmlFor="range1">
+        <label htmlFor="range1" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             type="checkbox"
             name="0-1000"
             id="range1"
@@ -54,8 +55,9 @@ const FilterByPriceRange = () => {
           $ 0-1000
         </label>
 
-        <label htmlFor="range2">
+        <label htmlFor="range2" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             type="checkbox"
             name="1000-2000"
             id="range2"
@@ -65,8 +67,9 @@ const FilterByPriceRange = () => {
           $ 1000-2000
         </label>
 
-        <label htmlFor="range3">
+        <label htmlFor="range3" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             type="checkbox"
             name="2000-3000"
             id="range3"
@@ -76,8 +79,9 @@ const FilterByPriceRange = () => {
           $ 2000-3000
         </label>
 
-        <label htmlFor="range4">
+        <label htmlFor="range4" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             type="checkbox"
             name="3000-4000"
             id="range4"
@@ -87,8 +91,9 @@ const FilterByPriceRange = () => {
           $ 3000-4000
         </label>
 
-        <label htmlFor="range6">
+        <label htmlFor="range6" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             type="checkbox"
             name="4000+"
             id="range6"

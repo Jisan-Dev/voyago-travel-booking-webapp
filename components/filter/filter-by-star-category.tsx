@@ -43,8 +43,9 @@ const FilterByStarCategory = () => {
     <div>
       <h3 className="font-bold text-lg">Star Category</h3>
       <form action="" className="flex flex-col gap-2 mt-2">
-        <label htmlFor="fiveStar">
+        <label htmlFor="fiveStar" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             onChange={handleChange}
             checked={query.includes("5")}
             type="checkbox"
@@ -54,8 +55,9 @@ const FilterByStarCategory = () => {
           5 Star
         </label>
 
-        <label htmlFor="fourStar">
+        <label htmlFor="fourStar" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             onChange={handleChange}
             checked={query.includes("4")}
             type="checkbox"
@@ -65,8 +67,9 @@ const FilterByStarCategory = () => {
           4 Star
         </label>
 
-        <label htmlFor="threeStar">
+        <label htmlFor="threeStar" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             onChange={handleChange}
             checked={query.includes("3")}
             type="checkbox"
@@ -76,8 +79,9 @@ const FilterByStarCategory = () => {
           3 Star
         </label>
 
-        <label htmlFor="twoStar">
+        <label htmlFor="twoStar" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             onChange={handleChange}
             checked={query.includes("2")}
             type="checkbox"
@@ -87,8 +91,9 @@ const FilterByStarCategory = () => {
           2 Star
         </label>
 
-        <label htmlFor="oneStar">
+        <label htmlFor="oneStar" className="flex items-center gap-2 cursor-pointer">
           <input
+            className="w-4 h-4 accent-primary"
             onChange={handleChange}
             checked={query.includes("1")}
             type="checkbox"

@@ -35,6 +35,7 @@ export function DatePickerDemo({
         }));
       }
     }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, setDate]);
 
   return (
