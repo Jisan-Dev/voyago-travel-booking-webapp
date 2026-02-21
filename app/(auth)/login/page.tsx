@@ -1,14 +1,16 @@
 "use client";
 
 import { AuthForm } from "@/components/auth-form";
+import { checkAuth } from "@/DAL";
 import { authClient } from "@/lib/auth-client";
 import { redirect } from "next/navigation";
 import { SubmitEvent } from "react";
 
 export default function LoginPage() {
-  const { data: session } = authClient.useSession();
-
-  if (session?.user) redirect("/");
+  const sessionTwo = checkAuth();
+  sessionTwo.then((data) => {
+    if (data.user) redirect("/");
+  });
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
