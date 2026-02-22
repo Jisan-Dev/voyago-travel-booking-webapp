@@ -103,6 +103,22 @@ async function findBookings(hotelId: string, checkin: string, checkout: string) 
   return found;
 }
 
+export async function getHotelById(id: string, checkin: string, checkout: string) {
+  await checkAuth();
+  await connectToDatabase();
+
+  const hotel = await Hotels.findById(id).lean();
+  if (checkin && checkout) {
+    const foundBookings = await findBookings(id, checkin, checkout);
+    if (foundBookings) {
+      hotel["isBooked"] = true;
+    } else {
+      hotel["isBooked"] = false;
+    }
+  }
+  return JSON.parse(JSON.stringify(hotel));
+}
+
 export async function getRatings(hotelId: string) {
   await checkAuth();
   await connectToDatabase();
