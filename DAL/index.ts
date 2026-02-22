@@ -142,3 +142,14 @@ export async function getReviewsCount(hotelId: string) {
   const reviewsCount = await Reviews.countDocuments({ hotelId });
   return reviewsCount;
 }
+
+export async function getBookingsByUser(userId: string) {
+  await checkAuth();
+  await connectToDatabase();
+
+  const bookings = await Bookings.find({ userId })
+    .populate("hotelId", "name highRate lowRate")
+    .lean();
+  console.log("BOOKINGS", bookings);
+  return JSON.parse(JSON.stringify(bookings));
+}
