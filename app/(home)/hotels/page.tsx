@@ -23,7 +23,7 @@ const HotelListPage = async ({ searchParams }: HotelListPageProps) => {
   const { destination, checkin, checkout, category, price, sort } = await searchParams;
   return (
     <>
-      <section className="bg-[url('/hero-bg.jpg')] bg-cover bg-no-repeat bg-center pt-[100px] pb-[60px]">
+      <section className="bg-[url('/hero-bg.jpg')] bg-cover bg-no-repeat bg-center pt-25 pb-15">
         <div className="container items-center py-12 ">
           <Search fromList={true} destination={destination} checkin={checkin} checkout={checkout} />
         </div>

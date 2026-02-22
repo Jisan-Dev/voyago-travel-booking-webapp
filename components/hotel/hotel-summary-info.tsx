@@ -45,7 +45,7 @@ const HotelSummaryInfo = async ({
         </h2>
         <p>📍 {info?.city}</p>
         <div className="flex gap-2 items-center my-4">
-          <div className="bg-primary px-2 h-[35px] rounded-sm text-white grid place-items-center font-bold">
+          <div className="bg-primary px-2 h-8.75 rounded-sm text-white grid place-items-center font-bold">
             {avgRating} {ratingsArr.length > 0 && `(${ratingsArr.length})`}
           </div>
           <div className="text-sm">
