@@ -1,3 +1,4 @@
+import { getRatings, getReviewsCount } from "@/DAL";
 import Link from "next/link";
 
 const HotelSummaryInfo = async ({
