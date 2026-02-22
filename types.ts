@@ -21,3 +21,11 @@ export interface IHotel {
 
   overview?: string;
 }
+
+export interface IBooking {
+  _id: string;
+  hotelId: IHotel;
+  userId: string;
+  checkin: string;
+  checkout: string;
+}

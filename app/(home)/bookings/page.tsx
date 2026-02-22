@@ -1,30 +1,30 @@
+import PastBooking from "@/components/bookings/past-bookings";
+import ProfileInfo from "@/components/bookings/profile-info";
+import UpcomingBooking from "@/components/bookings/upcoming-bookings";
 import { getBookingsByUser } from "@/DAL";
-import ProfileInfo from "@/components/user/ProfileInfo";
-import PastBooking from "@/components/user/booking/PastBooking";
-import UpcomingBooking from "@/components/user/booking/UpcomingBooking";
 import { auth } from "@/lib/auth";
+import { IBooking } from "@/types";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
 const BookingsPage = async () => {
-  const { user } = await auth.api.getSession({ headers: headers() });
-
+  const session = await auth.api.getSession({ headers: await headers() });
+  const user = session?.user;
   if (!user) redirect("/login");
 
   const bookings = await getBookingsByUser(user?.id);
 
   const pastBookings = bookings.filter(
-    (booking) => new Date().getTime() > new Date(booking.checkin).getTime(),
+    (booking: IBooking) => new Date().getTime() > new Date(booking.checkin).getTime(),
   );
 
-  const upcomingBookings = bookings.filter((booking) => {
-    console.log(new Date().getTime(), "||", new Date(booking.checkin).getTime());
+  const upcomingBookings = bookings.filter((booking: IBooking) => {
     return new Date().getTime() < new Date(booking.checkin).getTime();
   });
 
   return (
     <>
-      <section className="mt-[100px]">
+      <section className="mt-25">
         <div className="container">
           <ProfileInfo />
         </div>

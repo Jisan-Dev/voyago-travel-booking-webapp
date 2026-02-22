@@ -10,7 +10,7 @@ let cachedConnection: unknown = null;
 
 export async function connectToDatabase() {
   if (cachedConnection) {
-    console.log("[DATABASE IS ALREADY CONNECTED!]", cachedConnection);
+    console.log("[DATABASE IS ALREADY CONNECTED!]");
     return cachedConnection;
   }
 
@@ -20,7 +20,7 @@ export async function connectToDatabase() {
     });
 
     cachedConnection = conn.connection;
-    console.log("[DATABASE CONNECTED SUCCESSFULLY!]", cachedConnection);
+    console.log("[DATABASE CONNECTED SUCCESSFULLY!]");
     return cachedConnection;
   } catch (error) {
     console.error("Database connection error:", error);

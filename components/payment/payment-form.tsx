@@ -18,7 +18,6 @@ const PaymentForm = ({
 }) => {
   const [error, setError] = useState("");
   const { data: session, isPending } = authClient.useSession();
-  console.log("session", checkin);
   const router = useRouter();
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
