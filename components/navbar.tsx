@@ -1,8 +1,11 @@
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
 import Link from "next/link";
+import Logout from "./auth/logout";
 import { Button } from "./ui/button";
 
 const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
-  // const session = await auth.api.getSession({ headers: headers() });
+  const session = await auth.api.getSession({ headers: await headers() });
 
   return (
     <nav
@@ -50,7 +53,7 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
               <Link href="/bookings">Bookings</Link>
             </li>
 
-            {/* <li>
+            <li>
               {session?.user ? (
                 <div>
                   <span className="mx-1"> {session?.user?.name} </span>
@@ -58,17 +61,12 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
                   <Logout />
                 </div>
               ) : (
-                <Link href="/login" className="login">
-                  Login
+                <Link href="/login">
+                  <Button variant="default" size="lg" className="px-6">
+                    Login
+                  </Button>
                 </Link>
               )}
-            </li> */}
-            <li>
-              <Link href="/login">
-                <Button variant="default" size="lg" className="px-6">
-                  Login
-                </Button>
-              </Link>
             </li>
           </ul>
         )}
