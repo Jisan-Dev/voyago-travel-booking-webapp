@@ -91,7 +91,7 @@ export async function getAllHotels(
   return JSON.parse(JSON.stringify(allHotels));
 }
 
-async function findBookings(hotelId: string, checkin: string, checkout: string) {
+export async function findBookings(hotelId: string, checkin: string, checkout: string) {
   const bookings = await Bookings.find({ hotelId });
 
   const found = bookings.find(
