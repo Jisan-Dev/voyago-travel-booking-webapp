@@ -150,6 +150,5 @@ export async function getBookingsByUser(userId: string) {
   const bookings = await Bookings.find({ userId })
     .populate("hotelId", "name highRate lowRate")
     .lean();
-  console.log("BOOKINGS", bookings);
   return JSON.parse(JSON.stringify(bookings));
 }
