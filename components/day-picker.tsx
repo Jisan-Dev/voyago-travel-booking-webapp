@@ -38,6 +38,18 @@ export function DatePickerDemo({
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, setDate]);
 
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  const start = new Date(2025, 0, 1); // arbitrary old date
+
+  const daysDiff = (today.getTime() - start.getTime()) / (1000 * 60 * 60 * 24);
+
+  const bookedDates = Array.from(
+    { length: daysDiff },
+    (_, i) => new Date(start.getFullYear(), start.getMonth(), start.getDate() + i),
+  );
+
   return (
     <Popover>
       <PopoverTrigger asChild>
@@ -57,6 +69,13 @@ export function DatePickerDemo({
           onSelect={setDate}
           defaultMonth={date}
           required={true}
+          disabled={bookedDates}
+          modifiers={{
+            booked: bookedDates,
+          }}
+          modifiersClassNames={{
+            booked: "[&>button]:line-through opacity-100",
+          }}
         />
       </PopoverContent>
     </Popover>
