@@ -7,6 +7,7 @@ export default async function Home() {
       <video
         className="absolute inset-0 w-full h-full object-cover"
         src="https://www.pexels.com/download/video/2764953.mp4"
+        poster="https://images.unsplash.com/photo-1670960058964-79063a8ecc91?q=80&w=869&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"
         autoPlay
         loop
         muted
@@ -19,7 +20,7 @@ export default async function Home() {
           <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight">
             Discover Serenity in Nature&apos;s Embrace
           </h1>
-          <p className="mt-4 dark:text-red-300 text-lg sm:text-xl">
+          <p className="mt-4 text-lg sm:text-xl">
             Explore breathtaking landscapes and find your perfect escape in our curated collection
             of nature-inspired stays.
           </p>

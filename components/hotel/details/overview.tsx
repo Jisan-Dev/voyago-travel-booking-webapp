@@ -1,9 +1,9 @@
 const Overview = ({ overview }: { overview: string }) => {
   return (
     <section>
-      <div className="container py-8">
+      <div className="py-8 max-w-6xl mx-auto">
         <h2 className="font-bold text-xl my-4">Overview</h2>
-        <p className="text-gray-600 leading-8 whitespace-pre-wrap">{overview}</p>
+        <p className="text-muted-foreground leading-7 whitespace-pre-wrap">{overview}</p>
       </div>
     </section>
   );

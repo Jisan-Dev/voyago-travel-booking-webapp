@@ -64,7 +64,7 @@ const HotelSummaryInfo = async ({
           </div>
         </div>
         <div className="flex gap-2 items-center">
-          <span className="bg-yellow-300 p-1 rounded-md text-sm">
+          <span className="bg-yellow-300 p-1 rounded-md text-sm dark:text-background">
             {info?.propertyCategory} Star Property
           </span>
           {info?.isBooked && (
