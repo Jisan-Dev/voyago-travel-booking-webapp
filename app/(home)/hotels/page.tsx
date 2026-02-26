@@ -1,6 +1,9 @@
 import Filter from "@/components/filter";
 import HotelList from "@/components/hotel/hotel-list";
 import Search from "@/components/search/search";
+import { auth } from "@/lib/auth";
+import { headers } from "next/headers";
+import { redirect } from "next/navigation";
 
 const refinedCategory = (category: string) => {
   const decodedCategory = decodeURI(category);
@@ -20,6 +23,11 @@ type HotelListPageProps = {
 };
 
 const HotelListPage = async ({ searchParams }: HotelListPageProps) => {
+  const session = await auth.api.getSession({ headers: await headers() });
+  if (!session?.user) {
+    redirect("/login");
+  }
+
   const { destination, checkin, checkout, category, price, sort } = await searchParams;
   return (
     <>

@@ -11,11 +11,9 @@ export const metadata = {
 
 export default function AuthLayout({ children }: { children: React.ReactNode }) {
   return (
-    <html lang="en">
-      <body className={inter.className}>
-        <Navbar isLandingPage={false} showSideMenu={false} />
-        <main>{children}</main>
-      </body>
-    </html>
+    <>
+      <Navbar isLandingPage={false} showSideMenu={false} />
+      <main>{children}</main>
+    </>
   );
 }

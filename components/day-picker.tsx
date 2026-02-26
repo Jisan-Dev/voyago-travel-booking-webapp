@@ -56,7 +56,7 @@ export function DatePickerDemo({
         <Button
           // variant="outline"
           data-empty={!date}
-          className="data-[empty=true]:text-muted-foreground w-full bg-transparent justify-between text-left font-normal py-5 border-neutral-900/40 cursor-pointer text-black"
+          className="data-[empty=true]:text-muted-foreground w-full bg-input/30 justify-between text-left font-normal py-5 border-neutral-900/40 cursor-pointer text-black"
         >
           {date && date ? format(date, "PPP") : <span>Pick a date</span>}
           <Calendar1Icon />

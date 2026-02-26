@@ -3,17 +3,25 @@ import Search from "@/components/search/search";
 export default async function Home() {
   // const data = await getAllHotels();
   return (
-    <section className="relative min-h-screen flex items-center bg-[url('/hero-bg.jpg')] bg-cover bg-center">
-      <div className="absolute inset-0 bg-linear-to-b from-black/60 via-black/40 to-black/20" />
+    <section className="relative min-h-screen flex items-center">
+      <video
+        className="absolute inset-0 w-full h-full object-cover"
+        src="https://www.pexels.com/download/video/2764953.mp4"
+        autoPlay
+        loop
+        muted
+      />
+      <div className="absolute inset-0 bg-black/60" />
       {/* <div className="absolute inset-0 bg-[rgba(46,46,46,0.25)] mix-blend-overlay" /> */}
 
       <div className="container mx-auto px-6 relative z-10 mt-20">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight">
-            Hotels for memorable moments rich in emotions
+            Discover Serenity in Nature&apos;s Embrace
           </h1>
-          <p className="mt-4 text-gray-200 text-lg sm:text-xl">
-            459 rooms across Indonesia with 5-star standards — find your perfect stay.
+          <p className="mt-4 dark:text-red-300 text-lg sm:text-xl">
+            Explore breathtaking landscapes and find your perfect escape in our curated collection
+            of nature-inspired stays.
           </p>
 
           {/* <div className="mt-8 flex justify-center gap-4">

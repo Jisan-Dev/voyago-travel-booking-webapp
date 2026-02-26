@@ -9,8 +9,10 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
+import { authClient } from "@/lib/auth-client";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { useState } from "react";
+import { toast } from "sonner";
 import { DatePickerDemo } from "../day-picker";
 
 type Props = {
@@ -27,6 +29,7 @@ export type SearchTerm = {
 };
 
 const Search = ({ fromList, destination, checkin, checkout }: Props) => {
+  const { data: session } = authClient.useSession();
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
@@ -53,6 +56,11 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
   const allowSearch = isValidSearch(searchTerm);
 
   const handleSearch = () => {
+    if (!session?.user) {
+      toast.error("Please login to continue!");
+      // return;
+    }
+
     const params = new URLSearchParams(searchParams);
 
     params.set("destination", searchTerm.destination);
