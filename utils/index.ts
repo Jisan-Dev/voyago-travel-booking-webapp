@@ -7,3 +7,7 @@ export const isDateInBetween = (date: string, start: string, end: string) => {
 export const getDayDifference = (from: string, to: string) => {
   return (new Date(to).getTime() - new Date(from).getTime()) / (24 * 60 * 60 * 1000) + 1;
 };
+
+export const convertToSubCurrency = (amount: number, factor = 100) => {
+  return Math.round(amount * factor);
+};

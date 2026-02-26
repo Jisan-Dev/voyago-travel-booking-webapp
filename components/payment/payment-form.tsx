@@ -2,9 +2,11 @@
 
 import { authClient } from "@/lib/auth-client";
 import { IHotel } from "@/types";
-import { useRouter } from "next/navigation";
-import { SubmitEvent, useState } from "react";
-import BookingConfirmationModal from "../bookings/booking-confirmation";
+import { convertToSubCurrency } from "@/utils";
+import { Elements } from "@stripe/react-stripe-js";
+import { loadStripe } from "@stripe/stripe-js";
+import { useState } from "react";
+import CheckoutPage from "../checkout-page";
 
 const PaymentForm = ({
   checkin,
@@ -17,20 +19,20 @@ const PaymentForm = ({
   hotelInfo: IHotel;
   totalCost: number;
 }) => {
-  const [error, setError] = useState("");
-  const [openModal, setOpenModal] = useState<boolean>(false);
+  const [proceedPayment, setProceedPayment] = useState<boolean>(false);
   const { data: session, isPending } = authClient.useSession();
-  const router = useRouter();
 
-  const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
-    e.preventDefault();
+  const formattedCheckInDate = new Date(checkin).toISOString().split("T")[0];
+  const formattedCheckOutDate = new Date(checkout).toISOString().split("T")[0];
+
+  const handleSubmit = async () => {
     // Handle form submission logic here
     try {
-      const formData = new FormData(e.target);
+      // const formData = new FormData(e.target);
       const hotelId = hotelInfo?._id;
       const userId = session?.user?.id;
-      const checkin = formData.get("checkin");
-      const checkout = formData.get("checkout");
+      const checkin = formattedCheckInDate;
+      const checkout = formattedCheckOutDate;
 
       const res = await fetch("/api/payment", {
         method: "POST",
@@ -47,21 +49,28 @@ const PaymentForm = ({
 
       const data = await res.json();
       console.log("Payment response", data);
-      // alert("Payment successful! Your booking has been created.");
-      setOpenModal(true);
-      // router.replace("/bookings");
     } catch (error: any) {
-      console.error("Something went wrong with creating payment:", error);
-      setError(error.message);
-      alert("Something went wrong with creating payment: " + error.message);
+      console.error("Something went wrong with creating payment in DB:", error);
+      throw new Error(error);
     }
   };
 
+  if (!process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY) {
+    throw new Error("Missing STRIPE_PUBLISHABLE_KEY environment variable");
+  }
+
+  const stripePromise = loadStripe(process.env.NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY);
+
   return (
     <>
-      <form onSubmit={handleSubmit} className="my-8">
+      <form
+        onSubmit={(e) => {
+          e.preventDefault();
+          setProceedPayment(true);
+        }}
+        className="my-8"
+      >
         <div className="my-4 space-y-2">
-          {error && <p className="text-red-500 text-sm">{error}</p>}
           <label htmlFor="name" className="block">
             Name
           </label>
@@ -90,65 +99,40 @@ const PaymentForm = ({
         <div className="my-4 space-y-2">
           <span>Check in</span>
           <h4 className="mt-2">
-            <input
-              type="date"
-              name="checkin"
-              id="checkin"
-              value={new Date(checkin).toISOString().split("T")[0]}
-            />
+            <input type="date" name="checkin" id="checkin" value={formattedCheckInDate} />
           </h4>
         </div>
 
         <div className="my-4 space-y-2">
           <span>Checkout</span>
           <h4 className="mt-2">
-            <input
-              type="date"
-              name="checkout"
-              id="checkout"
-              value={new Date(checkout).toISOString().split("T")[0]}
-            />
+            <input type="date" name="checkout" id="checkout" value={formattedCheckOutDate} />
           </h4>
         </div>
 
-        <div className="my-4 space-y-2">
-          <label htmlFor="card" className="block">
-            Card Number
-          </label>
-          <input
-            type="text"
-            id="card"
-            className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
-          />
-        </div>
-
-        <div className="my-4 space-y-2">
-          <label htmlFor="expiry" className="block">
-            Expiry Date
-          </label>
-          <input
-            type="text"
-            id="expiry"
-            className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
-          />
-        </div>
-
-        <div className="my-4 space-y-2">
-          <label htmlFor="cvv" className="block">
-            CVV
-          </label>
-          <input
-            type="text"
-            id="cvv"
-            className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
-          />
-        </div>
-
         <button type="submit" className="btn-primary w-full">
-          Pay Now (${totalCost.toFixed(2)})
+          Proceed to Pay (${totalCost.toFixed(2)})
         </button>
       </form>
-      <BookingConfirmationModal open={openModal} onOpenChange={setOpenModal} />
+
+      {proceedPayment && (
+        <Elements
+          stripe={stripePromise}
+          options={{
+            mode: "payment",
+            amount: convertToSubCurrency(totalCost),
+            currency: "usd",
+          }}
+        >
+          <CheckoutPage
+            amount={totalCost}
+            onBookingSubmit={handleSubmit}
+            userEmail={session?.user?.email}
+          />
+        </Elements>
+      )}
+
+      {/* <BookingConfirmationModal open={openModal} onOpenChange={setOpenModal} /> */}
     </>
   );
 };
