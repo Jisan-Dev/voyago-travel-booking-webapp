@@ -2,6 +2,7 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import Link from "next/link";
 import Logout from "./auth/logout";
+import { ModeToggle } from "./theme-toggle";
 import { Button } from "./ui/button";
 
 const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
@@ -67,6 +68,10 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
                   </Button>
                 </Link>
               )}
+            </li>
+
+            <li>
+              <ModeToggle />
             </li>
           </ul>
         )}

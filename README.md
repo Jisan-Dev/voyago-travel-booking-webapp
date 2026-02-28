@@ -1,5 +1,3 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
-
 # Voyago - Hotel Booking App
 
 ## Getting Started
@@ -37,15 +35,58 @@ Follow these steps to get the application up and running locally.
 **1. Clone the Repository**
 
 ```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-git clone <repository-url>
-cd voyago
-
-
+git clone https://github.com/Jisan-Dev/voyago-travel-booking-webapp.git
+cd voyago-travel-booking-webapp
 ```
+
+**2.Install Dependencies & run dev server**
+
+```bash
+pnpm install
+pnpm dev
+```
+
+## 🔐 Environment Variables
+
+Create a `.env.local` file in the root directory and configure the following:
+
+MONGODB_URI=
+BETTER_AUTH_SECRET=
+NEXT_PUBLIC_BASE_URL=
+BETTER_AUTH_URL=
+GOOGLE_CLIENT_ID=
+GOOGLE_CLIENT_SECRET=
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=
+STRIPE_SECRET_KEY=
+
+## 📘 User Flow
+
+1️⃣ Sign up using email, password, or google account \
+2️⃣ Select a location, check-in date, and check-out date\
+3️⃣ See the list of booked and no-booked hotel rooms with their ratings and price \
+4️⃣ See the details of an available hotel \
+5️⃣ Book the hotel by paying with Stripe payment gateway \
+6️⃣ Check the bookings page to see all the past and upcoming bookings \
+
+---
+
+## 💡 What I Learned
+
+This project helped me enhance my understanding of:
+
+✔ Full-stack development with Next.js & MongoDB\
+✔ Secure authentication with email-password and Oauth\
+✔ Working with dates and date ranges, check availability to book a slot/room.\
+✔ How to securely process payment with Stripe. \
+✔ Using searchParams to implement search, sort, filtering etc.
+
+---
+
+## 📬 Contact
+
+Istiak Kashem Jisan\
+📧 istiakkashem35@gmail.com
+
+💼 Portfolio: https://jisan-swe.vercel.app
+
+⭐ If you found this project interesting, consider giving it a star on GitHub!
