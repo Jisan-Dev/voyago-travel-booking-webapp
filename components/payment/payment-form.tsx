@@ -7,6 +7,8 @@ import { Elements } from "@stripe/react-stripe-js";
 import { loadStripe } from "@stripe/stripe-js";
 import { useState } from "react";
 import CheckoutPage from "../checkout-page";
+import { Button } from "../ui/button";
+import { Input } from "../ui/input";
 
 const PaymentForm = ({
   checkin,
@@ -79,7 +81,7 @@ const PaymentForm = ({
             id="name"
             value={isPending ? "Loading..." : session?.user?.name || ""}
             disabled
-            className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
+            className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md dark:bg-input/30"
           />
         </div>
 
@@ -92,27 +94,39 @@ const PaymentForm = ({
             id="email"
             value={isPending ? "Loading..." : session?.user?.email || ""}
             disabled
-            className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md"
+            className="w-full border border-[#CCCCCC]/60 py-1 px-2 rounded-md dark:bg-input/30"
           />
         </div>
 
         <div className="my-4 space-y-2">
           <span>Check in</span>
           <h4 className="mt-2">
-            <input type="date" name="checkin" id="checkin" value={formattedCheckInDate} />
+            <Input
+              type="date"
+              name="checkin"
+              id="checkin"
+              className="py-4! border! border-[#CCCCCC]/60!"
+              value={formattedCheckInDate}
+            />
           </h4>
         </div>
 
         <div className="my-4 space-y-2">
           <span>Checkout</span>
           <h4 className="mt-2">
-            <input type="date" name="checkout" id="checkout" value={formattedCheckOutDate} />
+            <Input
+              type="date"
+              name="checkout"
+              id="checkout"
+              value={formattedCheckOutDate}
+              className="py-4! border! border-[#CCCCCC]/60!"
+            />
           </h4>
         </div>
 
-        <button type="submit" className="btn-primary w-full">
+        <Button type="submit" className="w-full py-5 font-bold">
           Proceed to Pay (${totalCost.toFixed(2)})
-        </button>
+        </Button>
       </form>
 
       {proceedPayment && (

@@ -2,11 +2,14 @@
 
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
+import { Button } from "../ui/button";
 
 export default function Logout() {
   const router = useRouter();
   return (
-    <button
+    <Button
+      variant={"ghost"}
+      className="text-primary hover:text-primary"
       onClick={async () => {
         await authClient.signOut({
           fetchOptions: {
@@ -19,9 +22,8 @@ export default function Logout() {
           },
         });
       }}
-      className="text-orange-600 font-md"
     >
       Sign Out
-    </button>
+    </Button>
   );
 }

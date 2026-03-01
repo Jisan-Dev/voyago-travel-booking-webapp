@@ -37,9 +37,9 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
       <div className="flex items-center gap-6">
         {showSideMenu && (
           <ul className="flex items-center gap-6">
-            <li>
+            {/* <li>
               <Link href="#">Recommended Places</Link>
-            </li>
+            </li> */}
 
             <li>
               <Link href="#">About Us</Link>
@@ -61,11 +61,18 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
                   <Logout />
                 </div>
               ) : (
-                <Link href="/login">
-                  <Button variant="default" size="lg" className="px-6">
-                    Login
-                  </Button>
-                </Link>
+                <div className="flex items-center gap-1">
+                  <Link href="/login">
+                    <Button variant="link" size="lg" className="text-base">
+                      SignIn
+                    </Button>
+                  </Link>
+                  <Link href="/register">
+                    <Button variant="default" size="lg" className="px-6">
+                      Sign Up
+                    </Button>
+                  </Link>
+                </div>
               )}
             </li>
 
