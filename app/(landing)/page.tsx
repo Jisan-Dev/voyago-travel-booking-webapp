@@ -1,3 +1,4 @@
+import { TextEffect } from "@/components/motion-primitives/text-effect";
 import Search from "@/components/search/search";
 
 export default async function Home() {
@@ -18,11 +19,15 @@ export default async function Home() {
       <div className="container mx-auto px-6 relative z-10 mt-20">
         <div className="max-w-4xl mx-auto text-center">
           <h1 className="text-white font-extrabold text-4xl sm:text-5xl lg:text-6xl leading-tight">
-            Discover Serenity in Nature&apos;s Embrace
+            <TextEffect per="char" preset="fade">
+              Discover Serenity in Nature&apos;s Embrace
+            </TextEffect>
           </h1>
           <p className="mt-4 text-lg sm:text-xl">
-            Explore breathtaking landscapes and find your perfect escape in our curated collection
-            of nature-inspired stays.
+            <TextEffect preset="fade-in-blur" speedReveal={1.1} speedSegment={0.3}>
+              Explore breathtaking landscapes and find your perfect escape in our curated collection
+              of nature-inspired stays.
+            </TextEffect>
           </p>
 
           {/* <div className="mt-8 flex justify-center gap-4">
