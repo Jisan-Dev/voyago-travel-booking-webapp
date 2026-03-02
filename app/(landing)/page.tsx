@@ -1,5 +1,6 @@
 import { TextEffect } from "@/components/motion-primitives/text-effect";
 import Search from "@/components/search/search";
+import * as motion from "motion/react-client";
 
 export default async function Home() {
   // const data = await getAllHotels();
@@ -39,9 +40,14 @@ export default async function Home() {
             </button>
           </div> */}
 
-          <div className="mt-8 bg-white/10 backdrop-blur-sm rounded-xl p-4 shadow-lg max-w-3xl mx-auto">
+          <motion.div
+            initial={{ opacity: 0, scale: 0.9 }}
+            animate={{ opacity: 1, scale: 1 }}
+            transition={{ duration: 1 }}
+            className="mt-8 bg-white/10 backdrop-blur-sm rounded-xl p-4 shadow-lg max-w-3xl mx-auto"
+          >
             <Search />
-          </div>
+          </motion.div>
         </div>
       </div>
     </section>

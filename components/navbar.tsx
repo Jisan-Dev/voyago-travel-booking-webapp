@@ -1,4 +1,5 @@
 import { auth } from "@/lib/auth";
+import * as motion from "motion/react-client";
 import { headers } from "next/headers";
 import Link from "next/link";
 import Logout from "./auth/logout";
@@ -8,7 +9,10 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
   const session = await auth.api.getSession({ headers: await headers() });
 
   return (
-    <nav
+    <motion.nav
+      initial={{ y: -20, opacity: 0 }}
+      animate={{ y: 0, opacity: 1 }}
+      transition={{ duration: 0.5, delay: 0.5 }}
       className={`w-full flex items-center justify-between py-4 ${isLandingPage ? "text-gray-100" : "text-gray-800"}`}
     >
       <Link href="/" className="flex items-center gap-2">
@@ -82,7 +86,7 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
           </ul>
         )}
       </div>
-    </nav>
+    </motion.nav>
   );
 };
 

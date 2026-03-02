@@ -154,7 +154,7 @@
   }
 
   .search-btn {
-    @apply bg-primary px-8 py-3 rounded-md block mx-auto text-white font-bold -translate-y-1/2 shadow-lg hover:shadow-primary/50 active:scale-95 transition-all disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700 disabled:shadow-none;
+    @apply bg-primary px-8 py-3 rounded-md block mx-auto text-neutral-900 font-bold -translate-y-1/2 shadow-lg hover:shadow-primary/50 active:scale-95 transition-all disabled:cursor-not-allowed disabled:bg-gray-400 disabled:text-gray-700 disabled:shadow-none cursor-pointer;
   }
 
   .btn-primary {

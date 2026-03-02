@@ -1,5 +1,6 @@
 import { getRatings, getReviewsCount } from "@/DAL";
 import Link from "next/link";
+import { Badge } from "../ui/badge";
 
 const HotelSummaryInfo = async ({
   fromListPage,
@@ -45,7 +46,7 @@ const HotelSummaryInfo = async ({
         </h2>
         <p>📍 {info?.city}</p>
         <div className="flex gap-2 items-center my-4">
-          <div className="bg-primary px-2 h-8.75 rounded-sm text-white grid place-items-center font-bold">
+          <div className="bg-primary px-2 h-8.75 rounded-sm text-neutral-900 grid place-items-center font-bold">
             {avgRating} {ratingsArr.length > 0 && `(${ratingsArr.length})`}
           </div>
           <div className="text-sm">
@@ -64,11 +65,16 @@ const HotelSummaryInfo = async ({
           </div>
         </div>
         <div className="flex gap-2 items-center">
-          <span className="bg-yellow-300 p-1 rounded-md text-sm dark:text-background">
+          {/* <span className="bg-yellow-300 p-1 rounded-md text-sm dark:text-background">
             {info?.propertyCategory} Star Property
-          </span>
+          </span> */}
+          <Badge className="h-5.5">{info?.propertyCategory} Star Property</Badge>
+
           {info?.isBooked && (
-            <span className="bg-red-300 text-red-950 p-1 px-2 rounded-md text-xs">BOOKED!</span>
+            // <span className="bg-red-300 text-red-950 p-1 px-2 rounded-md text-xs">BOOKED!</span>
+            <Badge className="h-5.5" variant="destructive">
+              BOOKED!
+            </Badge>
           )}
         </div>
       </div>
@@ -81,7 +87,7 @@ const HotelSummaryInfo = async ({
         {fromListPage ? (
           <Link
             href={`/hotels/${info._id}?checkin=${checkin}&checkout=${checkout}`}
-            className="btn-primary"
+            className="btn-primary text-neutral-900!"
           >
             Details
           </Link>
@@ -93,7 +99,7 @@ const HotelSummaryInfo = async ({
                 : `/hotels/${info._id}/payment?checkin=${checkin}&checkout=${checkout}`
             }
           >
-            <button disabled={info?.isBooked} className="btn-primary">
+            <button disabled={info?.isBooked} className="btn-primary text-neutral-900!">
               Book
             </button>
           </Link>
