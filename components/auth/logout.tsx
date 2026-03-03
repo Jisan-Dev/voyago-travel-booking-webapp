@@ -17,7 +17,7 @@ export default function Logout() {
               router.refresh();
               setTimeout(() => {
                 router.replace("/login");
-              }, 500);
+              }, 250);
             },
           },
         });

@@ -67,7 +67,7 @@ export function AuthForm({ className, handleSubmit, mode = "login", ...props }: 
                 <Input id="password" name="password" type="password" required />
               </Field>
               <Field>
-                <Button type="submit">
+                <Button type="submit" disabled={isPending}>
                   {" "}
                   {isPending && <Spinner />}{" "}
                   {mode === "login"
