@@ -4,9 +4,11 @@ import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Field, FieldDescription, FieldGroup, FieldLabel } from "@/components/ui/field";
 import { Input } from "@/components/ui/input";
+import { authClient } from "@/lib/auth-client";
 import { cn } from "@/lib/utils";
 import Link from "next/link";
 import SocialLogins from "./auth/social-logins";
+import { Spinner } from "./ui/spinner";
 
 interface LoginFormProps extends React.ComponentProps<"div"> {
   handleSubmit?: (event: React.SubmitEvent<HTMLFormElement>) => Promise<void>;
@@ -14,6 +16,7 @@ interface LoginFormProps extends React.ComponentProps<"div"> {
 }
 
 export function AuthForm({ className, handleSubmit, mode = "login", ...props }: LoginFormProps) {
+  const { isPending } = authClient.useSession();
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
       <Card className="outline-primary/20">
@@ -64,7 +67,17 @@ export function AuthForm({ className, handleSubmit, mode = "login", ...props }: 
                 <Input id="password" name="password" type="password" required />
               </Field>
               <Field>
-                <Button type="submit">{mode === "login" ? "Login" : "Register"}</Button>
+                <Button type="submit">
+                  {" "}
+                  {isPending && <Spinner />}{" "}
+                  {mode === "login"
+                    ? !isPending
+                      ? "Login"
+                      : "Logging in..."
+                    : !isPending
+                      ? "Register"
+                      : "Registering..."}
+                </Button>
                 {/* <Button variant="outline" type="button">
                   Login with Google
                 </Button> */}
