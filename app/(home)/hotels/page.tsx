@@ -1,9 +1,11 @@
 import Filter from "@/components/filter";
 import HotelList from "@/components/hotel/hotel-list";
+import LoaderComponent from "@/components/loading";
 import Search from "@/components/search/search";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
+import { Suspense } from "react";
 
 const refinedCategory = (category: string) => {
   const decodedCategory = decodeURI(category);
@@ -40,14 +42,16 @@ const HotelListPage = async ({ searchParams }: HotelListPageProps) => {
       <section className="py-12">
         <div className="container grid grid-cols-12">
           <Filter />
-          <HotelList
-            destination={destination}
-            checkin={checkin}
-            checkout={checkout}
-            category={refinedCategory(category)}
-            price={decodeURI(price)}
-            sort={sort}
-          />
+          <Suspense fallback={<LoaderComponent />}>
+            <HotelList
+              destination={destination}
+              checkin={checkin}
+              checkout={checkout}
+              category={refinedCategory(category)}
+              price={decodeURI(price)}
+              sort={sort}
+            />
+          </Suspense>
         </div>
       </section>
     </>
