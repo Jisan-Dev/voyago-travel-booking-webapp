@@ -26,9 +26,11 @@ export async function getAllHotels(
   await checkAuth();
   await connectToDatabase();
 
+  console.log(destination, typeof checkin, checkout, category);
+
   const query: Record<string, any> = {};
   if (destination) {
-    query.city = { $regex: new RegExp(destination, "i") };
+    query.city = "Puglia";
   }
 
   if (category) {
@@ -70,8 +72,9 @@ export async function getAllHotels(
 
   const hotels = await Hotels.find(query)
     .select(["thumbNailUrl", "name", "highRate", "lowRate", "city", "propertyCategory"])
-    .sort(sort === "desc" ? { lowRate: -1 } : { lowRate: 1 })
+    // .sort(sort === "desc" ? { lowRate: -1 } : { lowRate: 1 })
     .lean();
+  console.log(query, "hotels", hotels);
 
   let allHotels = hotels;
   if (checkin && checkout) {
@@ -87,6 +90,7 @@ export async function getAllHotels(
       }),
     );
   }
+  console.log(allHotels);
 
   return JSON.parse(JSON.stringify(allHotels));
 }

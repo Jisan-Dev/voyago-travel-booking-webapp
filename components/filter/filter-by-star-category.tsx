@@ -1,8 +1,10 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
+import { SearchContext } from "@/providers/SearchProvider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import { HotelListProps } from "../hotel/hotel-list";
 
 const FilterByStarCategory = () => {
   const [query, setQuery] = useState<string[]>([]);
@@ -11,6 +13,11 @@ const FilterByStarCategory = () => {
 
   const pathName = usePathname();
   const router = useRouter();
+
+  const { search, setSearch } = useContext<{
+    search: HotelListProps;
+    setSearch: Dispatch<SetStateAction<HotelListProps>>;
+  }>(SearchContext);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -23,20 +30,24 @@ const FilterByStarCategory = () => {
     }
   };
 
-  useEffect(() => {
-    if (params.get("category")) {
-      setQuery(params.get("category")!.split("|"));
-    }
-  }, []);
+  // useEffect(() => {
+  //   if (params.get("category")) {
+  //     setQuery(params.get("category")!.split("|"));
+  //   }
+  // }, []);
 
   useEffect(() => {
-    if (query.length) {
-      params.set("category", encodeURI(query.join("|")));
-    } else {
-      params.delete("category");
-    }
+    // if (query.length) {
+    //   params.set("category", encodeURI(query.join("|")));
+    // } else {
+    //   params.delete("category");
+    // }
 
-    router.replace(`${pathName}?${params.toString()}`);
+    // router.replace(`${pathName}?${params.toString()}`);
+    setSearch((prev: typeof search) => ({
+      ...prev,
+      category: query.join("|"),
+    }));
   }, [query]);
 
   return (
