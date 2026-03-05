@@ -36,7 +36,9 @@ const FilterByStarCategory = () => {
       params.delete("category");
     }
 
-    router.replace(`${pathName}?${params.toString()}`);
+    router.replace(`${pathName}?${params.toString()}`, {
+      scroll: false,
+    });
   }, [query]);
 
   return (

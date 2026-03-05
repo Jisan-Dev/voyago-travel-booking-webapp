@@ -70,7 +70,9 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
     }
 
     if (pathname.includes("hotels")) {
-      router.replace(`${pathname}?${params.toString()}`);
+      router.replace(`${pathname}?${params.toString()}`, {
+        scroll: false,
+      });
     } else {
       router.replace(`/hotels?${params.toString()}`);
     }
