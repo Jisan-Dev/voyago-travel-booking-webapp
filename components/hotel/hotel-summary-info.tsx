@@ -4,7 +4,7 @@ import { getRatings, getReviewsCount } from "@/DAL";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
-import { Skeleton } from "../ui/skeleton";
+import { Spinner } from "../ui/spinner";
 
 const HotelSummaryInfo = ({
   fromListPage,
@@ -72,7 +72,7 @@ const HotelSummaryInfo = ({
         <p>📍 {info?.city}</p>
         <div className="flex gap-2 items-center my-4">
           <div className="bg-primary px-2 h-8.75 rounded-sm text-neutral-900 place-items-center font-bold flex">
-            {loading ? <Skeleton className="h-3 w-4 rounded" /> : <span>{avgRating}</span>}
+            {loading ? <Spinner /> : <span>{avgRating}</span>}
             {ratingsArr.length > 0 && <span>{`(${ratingsArr.length})`}</span>}
           </div>
           <div className="text-sm">
