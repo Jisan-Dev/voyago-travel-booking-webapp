@@ -24,12 +24,12 @@ export default async function Home() {
               Discover Serenity in Nature&apos;s Embrace
             </TextEffect>
           </h1>
-          <p className="mt-4 text-lg sm:text-xl">
+          <span className="mt-4 text-lg sm:text-xl">
             <TextEffect preset="fade-in-blur" speedReveal={1.1} speedSegment={0.3}>
               Explore breathtaking landscapes and find your perfect escape in our curated collection
               of nature-inspired stays.
             </TextEffect>
-          </p>
+          </span>
 
           {/* <div className="mt-8 flex justify-center gap-4">
             <button className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-md shadow-lg font-semibold">
