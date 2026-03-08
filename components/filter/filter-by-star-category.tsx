@@ -1,8 +1,11 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { SearchContext } from "@/providers/SearchProvider";
+import { refinedCategory } from "@/utils";
+import { usePathname, useSearchParams } from "next/navigation";
+import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import { HotelListProps } from "../hotel/hotel-list";
 
 const FilterByStarCategory = () => {
   const [query, setQuery] = useState<string[]>([]);
@@ -10,7 +13,11 @@ const FilterByStarCategory = () => {
   const params = new URLSearchParams(searchParams);
 
   const pathName = usePathname();
-  const router = useRouter();
+
+  const { search, setSearch } = useContext<{
+    search: HotelListProps;
+    setSearch: Dispatch<SetStateAction<HotelListProps>>;
+  }>(SearchContext);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -25,20 +32,24 @@ const FilterByStarCategory = () => {
 
   useEffect(() => {
     if (params.get("category")) {
-      setQuery(params.get("category")!.split("|"));
+      setQuery(decodeURI(params.get("category") || "").split("|"));
     }
   }, []);
+  console.log("query", query);
 
   useEffect(() => {
     if (query.length) {
-      params.set("category", encodeURI(query.join("|")));
+      params.set("category", refinedCategory(query.join("|")));
     } else {
       params.delete("category");
     }
 
-    router.replace(`${pathName}?${params.toString()}`, {
-      scroll: false,
-    });
+    const url = `${pathName}?${params.toString()}`;
+    window.history.replaceState(null, "", url);
+    setSearch((prev: typeof search) => ({
+      ...prev,
+      category: query.join("|"),
+    }));
   }, [query]);
 
   return (

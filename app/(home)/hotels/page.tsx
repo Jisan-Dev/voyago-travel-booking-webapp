@@ -1,17 +1,9 @@
 import Filter from "@/components/filter";
 import HotelList from "@/components/hotel/hotel-list";
-import LoaderComponent from "@/components/loading";
 import Search from "@/components/search/search";
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
-import { Suspense } from "react";
-
-const refinedCategory = (category: string) => {
-  const decodedCategory = decodeURI(category);
-  if (decodedCategory === "undefined") return "";
-  return decodedCategory;
-};
 
 type HotelListPageProps = {
   searchParams: Promise<{
@@ -31,6 +23,7 @@ const HotelListPage = async ({ searchParams }: HotelListPageProps) => {
   }
 
   const { destination, checkin, checkout, category, price, sort } = await searchParams;
+
   return (
     <>
       <section className="bg-[url('/hero-bg.jpg')] bg-cover bg-no-repeat bg-center pt-25 pb-15 relative">
@@ -42,16 +35,7 @@ const HotelListPage = async ({ searchParams }: HotelListPageProps) => {
       <section className="py-12">
         <div className="container grid grid-cols-12">
           <Filter />
-          <Suspense fallback={<LoaderComponent />}>
-            <HotelList
-              destination={destination}
-              checkin={checkin}
-              checkout={checkout}
-              category={refinedCategory(category)}
-              price={decodeURI(price)}
-              sort={sort}
-            />
-          </Suspense>
+          <HotelList />
         </div>
       </section>
     </>

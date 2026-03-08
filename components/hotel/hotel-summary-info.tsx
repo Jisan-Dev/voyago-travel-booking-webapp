@@ -1,8 +1,11 @@
+"use client";
+
 import { getRatings, getReviewsCount } from "@/DAL";
 import Link from "next/link";
+import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
 
-const HotelSummaryInfo = async ({
+const HotelSummaryInfo = ({
   fromListPage,
   info,
   checkin,
@@ -13,8 +16,26 @@ const HotelSummaryInfo = async ({
   checkin: string;
   checkout: string;
 }) => {
-  const totalReviews = await getReviewsCount(info?._id);
-  const ratingsArr = await getRatings(info?._id);
+  // const totalReviews = await getReviewsCount(info?._id);
+  // const ratingsArr = await getRatings(info?._id);
+
+  const [totalReviews, setTotalReviews] = useState(0);
+  const [ratingsArr, setRatingsArr] = useState<any[]>([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const totalReviews = await getReviewsCount(info?._id);
+        const ratingsArr = await getRatings(info?._id);
+        setTotalReviews(totalReviews);
+        setRatingsArr(ratingsArr);
+      } catch (error) {
+        console.log("fetch error:", error);
+      }
+    };
+
+    fetchData();
+  }, [info?._id]);
 
   let avgRating = 0;
 

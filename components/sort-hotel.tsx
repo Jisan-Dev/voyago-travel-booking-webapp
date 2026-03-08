@@ -1,27 +1,34 @@
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { SearchContext } from "@/providers/SearchProvider";
+import { usePathname, useSearchParams } from "next/navigation";
+import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import { HotelListProps } from "./hotel/hotel-list";
 
 const SortHotel = () => {
-  const [sort, setSort] = useState("");
   const searchParams = useSearchParams();
+  const [sort, setSort] = useState(() => searchParams.get("sort") || "desc");
   const params = new URLSearchParams(searchParams);
 
   const pathName = usePathname();
-  const router = useRouter();
+  const { setSearch } = useContext<{ setSearch: Dispatch<SetStateAction<HotelListProps>> }>(
+    SearchContext,
+  );
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setSort(e.target.value);
   };
 
-  // useEffect
-
   useEffect(() => {
     if (sort) params.set("sort", sort);
     else params.delete("sort");
 
-    router.replace(`${pathName}?${params.toString()}`);
+    const url = `${pathName}?${params.toString()}`;
+    window.history.replaceState(null, "", url);
+    setSearch((prev: HotelListProps) => ({
+      ...prev,
+      sort,
+    }));
   }, [sort]);
 
   return (

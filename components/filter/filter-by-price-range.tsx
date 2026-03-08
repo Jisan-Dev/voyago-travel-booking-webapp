@@ -1,15 +1,19 @@
 /* eslint-disable react-hooks/exhaustive-deps */
 "use client";
 
-import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { ChangeEvent, useEffect, useState } from "react";
+import { SearchContext } from "@/providers/SearchProvider";
+import { usePathname, useSearchParams } from "next/navigation";
+import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
+import { HotelListProps } from "../hotel/hotel-list";
 
 const FilterByPriceRange = () => {
   const [query, setQuery] = useState<string[]>([]);
   const searchParams = useSearchParams();
   const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
-  const router = useRouter();
+  const { setSearch } = useContext<{
+    setSearch: Dispatch<SetStateAction<HotelListProps>>;
+  }>(SearchContext);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const name = e.target.name;
@@ -23,7 +27,7 @@ const FilterByPriceRange = () => {
   };
 
   useEffect(() => {
-    const price = params.get("price");
+    const price = decodeURI(params.get("price") || "");
     if (price) {
       setQuery(price.split("|"));
     }
@@ -36,7 +40,13 @@ const FilterByPriceRange = () => {
       params.delete("price");
     }
 
-    router.replace(`${pathname}?${params.toString()}`);
+    // router.replace(`${pathname}?${params.toString()}`);
+    const url = `${pathname}?${params.toString()}`;
+    window.history.replaceState(null, "", url);
+    setSearch((prev: HotelListProps) => ({
+      ...prev,
+      price: query.join("|"),
+    }));
   }, [query]);
 
   return (

@@ -10,10 +10,12 @@ import {
   SelectValue,
 } from "@/components/ui/select";
 import { authClient } from "@/lib/auth-client";
+import { SearchContext } from "@/providers/SearchProvider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { useState } from "react";
+import { Dispatch, SetStateAction, useContext, useState } from "react";
 import { toast } from "sonner";
 import { DatePickerDemo } from "../day-picker";
+import { HotelListProps } from "../hotel/hotel-list";
 
 type Props = {
   fromList?: boolean;
@@ -29,15 +31,20 @@ export type SearchTerm = {
 };
 
 const Search = ({ fromList, destination, checkin, checkout }: Props) => {
+  const pathName = usePathname();
   const { data: session } = authClient.useSession();
+  const { search, setSearch } = useContext<{
+    search: HotelListProps;
+    setSearch: Dispatch<SetStateAction<HotelListProps>>;
+  }>(SearchContext);
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
   const [searchTerm, setSearchTerm] = useState<SearchTerm>({
-    destination: destination || "",
-    checkin: checkin || "",
-    checkout: checkout || "",
+    destination: destination || search.destination || "",
+    checkin: checkin || search.checkin || "",
+    checkout: checkout || search.checkout || "",
   });
 
   const handleDestinationChange = (value: string) => {
@@ -58,7 +65,7 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
   const handleSearch = () => {
     if (!session?.user) {
       toast.error("Please login to continue!");
-      // return;
+      return;
     }
 
     const params = new URLSearchParams(searchParams);
@@ -69,12 +76,18 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
       params.set("checkout", searchTerm?.checkout);
     }
 
+    setSearch((prev: typeof search) => ({
+      ...prev,
+      destination: searchTerm.destination,
+      checkin: searchTerm.checkin,
+      checkout: searchTerm.checkout,
+    }));
+
     if (pathname.includes("hotels")) {
-      router.replace(`${pathname}?${params.toString()}`, {
-        scroll: false,
-      });
+      const url = `${pathName}?${params.toString()}`;
+      window.history.replaceState(null, "", url);
     } else {
-      router.replace(`/hotels?${params.toString()}`);
+      router.push(`/hotels?${params.toString()}`);
     }
   };
 
