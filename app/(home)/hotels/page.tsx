@@ -3,10 +3,12 @@
 import Filter from "@/components/filter";
 import HotelList, { HotelListProps } from "@/components/hotel/hotel-list";
 import Search from "@/components/search/search";
+import { authClient } from "@/lib/auth-client";
 import { SearchContext } from "@/providers/SearchProvider";
 import { refinedCategory } from "@/utils";
-import { useSearchParams } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useContext, useEffect } from "react";
+import Component from "../loading";
 
 type HotelListPageProps = {
   searchParams: Promise<{
@@ -24,10 +26,10 @@ const HotelListPage = () => {
     search: HotelListProps;
     setSearch: Dispatch<SetStateAction<HotelListProps>>;
   }>(SearchContext);
-  // const session = await auth.api.getSession({ headers: await headers() });
-  // if (!session?.user) {
-  //   redirect("/login");
-  // }
+  const { data, isPending } = authClient.useSession();
+  if (!data?.user && !isPending) {
+    redirect("/login");
+  }
 
   // const { destination, checkin, checkout, category, price, sort } = await searchParams;
   const searchParams = useSearchParams();
@@ -49,6 +51,14 @@ const HotelListPage = () => {
       sort,
     }));
   }, [destination, checkin, checkout, category, price, sort, setSearch]);
+
+  if (isPending) {
+    return (
+      <div className="flex items-center justify-center h-full">
+        <Component />
+      </div>
+    );
+  }
 
   return (
     <>

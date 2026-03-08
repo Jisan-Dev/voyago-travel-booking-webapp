@@ -15,7 +15,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        {/* <Suspense fallback={<div>Loading...</div>}> */}
         <SearchProvider>
           <ThemeProvider
             attribute="class"
@@ -27,7 +26,6 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             <Toaster theme="system" />
           </ThemeProvider>
         </SearchProvider>
-        {/* </Suspense> */}
       </body>
     </html>
   );
