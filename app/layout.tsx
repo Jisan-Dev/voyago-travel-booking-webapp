@@ -1,6 +1,7 @@
 import { ThemeProvider } from "@/components/theme-provider";
 import SearchProvider from "@/providers/SearchProvider";
 import { Inter } from "next/font/google";
+import { Suspense } from "react";
 import { Toaster } from "sonner";
 import "../app/globals.css";
 
@@ -15,17 +16,19 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
   return (
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
-        <SearchProvider>
-          <ThemeProvider
-            attribute="class"
-            defaultTheme="dark"
-            enableSystem
-            disableTransitionOnChange
-          >
-            {children}
-            <Toaster theme="system" />
-          </ThemeProvider>
-        </SearchProvider>
+        <Suspense fallback={<div>Loading...</div>}>
+          <SearchProvider>
+            <ThemeProvider
+              attribute="class"
+              defaultTheme="dark"
+              enableSystem
+              disableTransitionOnChange
+            >
+              {children}
+              <Toaster theme="system" />
+            </ThemeProvider>
+          </SearchProvider>
+        </Suspense>
       </body>
     </html>
   );
