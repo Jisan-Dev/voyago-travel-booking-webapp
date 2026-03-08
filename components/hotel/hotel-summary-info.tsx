@@ -4,6 +4,7 @@ import { getRatings, getReviewsCount } from "@/DAL";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
+import { Skeleton } from "../ui/skeleton";
 
 const HotelSummaryInfo = ({
   fromListPage,
@@ -21,6 +22,7 @@ const HotelSummaryInfo = ({
 
   const [totalReviews, setTotalReviews] = useState(0);
   const [ratingsArr, setRatingsArr] = useState<any[]>([]);
+  const [loading, setLoading] = useState(true);
 
   useEffect(() => {
     const fetchData = async () => {
@@ -31,6 +33,8 @@ const HotelSummaryInfo = ({
         setRatingsArr(ratingsArr);
       } catch (error) {
         console.log("fetch error:", error);
+      } finally {
+        setLoading(false);
       }
     };
 
@@ -67,8 +71,9 @@ const HotelSummaryInfo = ({
         </h2>
         <p>📍 {info?.city}</p>
         <div className="flex gap-2 items-center my-4">
-          <div className="bg-primary px-2 h-8.75 rounded-sm text-neutral-900 grid place-items-center font-bold">
-            {avgRating} {ratingsArr.length > 0 && `(${ratingsArr.length})`}
+          <div className="bg-primary px-2 h-8.75 rounded-sm text-neutral-900 place-items-center font-bold flex">
+            {loading ? <Skeleton className="h-3 w-4 rounded" /> : <span>{avgRating}</span>}
+            {ratingsArr.length > 0 && <span>{`(${ratingsArr.length})`}</span>}
           </div>
           <div className="text-sm">
             <span className="font-semibold">{getRatingStatus(avgRating)}</span>

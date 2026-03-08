@@ -3,7 +3,7 @@
 import { SearchContext } from "@/providers/SearchProvider";
 import { IHotel } from "@/types";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import { Spinner } from "../ui/spinner";
+import HotelCardSkeleton from "../card-skeleton";
 import HotelCard from "./hotel-card";
 import NoHotels from "./no-hotels";
 
@@ -68,17 +68,6 @@ const HotelList = () => {
 
   console.log(hotels);
 
-  if (loading) {
-    return (
-      <div className="flex w-full justify-center col-span-9 pt-8">
-        <div className="flex flex-col items-center space-y-4 text-primary">
-          <p className="text-2xl tracking-wide font-bold uppercase">Loading..</p>
-          <Spinner className="size-10" />
-        </div>
-      </div>
-    );
-  }
-
   return (
     <div className="col-span-9">
       <div className="space-y-4">
@@ -86,6 +75,11 @@ const HotelList = () => {
           hotels?.map((hotel: IHotel) => (
             <HotelCard key={hotel._id} hotel={hotel} checkin={checkin} checkout={checkout} />
           ))
+        ) : loading === true ? (
+          <>
+            <HotelCardSkeleton />
+            <HotelCardSkeleton />
+          </>
         ) : (
           <NoHotels />
         )}
