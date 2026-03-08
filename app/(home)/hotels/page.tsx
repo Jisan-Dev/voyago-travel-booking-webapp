@@ -1,9 +1,12 @@
+"use client";
+
 import Filter from "@/components/filter";
-import HotelList from "@/components/hotel/hotel-list";
+import HotelList, { HotelListProps } from "@/components/hotel/hotel-list";
 import Search from "@/components/search/search";
-import { auth } from "@/lib/auth";
-import { headers } from "next/headers";
-import { redirect } from "next/navigation";
+import { SearchContext } from "@/providers/SearchProvider";
+import { refinedCategory } from "@/utils";
+import { useSearchParams } from "next/navigation";
+import { Dispatch, SetStateAction, useContext, useEffect } from "react";
 
 type HotelListPageProps = {
   searchParams: Promise<{
@@ -16,13 +19,36 @@ type HotelListPageProps = {
   }>;
 };
 
-const HotelListPage = async ({ searchParams }: HotelListPageProps) => {
-  const session = await auth.api.getSession({ headers: await headers() });
-  if (!session?.user) {
-    redirect("/login");
-  }
+const HotelListPage = () => {
+  const { search, setSearch } = useContext<{
+    search: HotelListProps;
+    setSearch: Dispatch<SetStateAction<HotelListProps>>;
+  }>(SearchContext);
+  // const session = await auth.api.getSession({ headers: await headers() });
+  // if (!session?.user) {
+  //   redirect("/login");
+  // }
 
-  const { destination, checkin, checkout, category, price, sort } = await searchParams;
+  // const { destination, checkin, checkout, category, price, sort } = await searchParams;
+  const searchParams = useSearchParams();
+  const destination = searchParams.get("destination") || "";
+  const checkin = searchParams.get("checkin") || "";
+  const checkout = searchParams.get("checkout") || "";
+  const category = searchParams.get("category") || "";
+  const price = searchParams.get("price") || "";
+  const sort = searchParams.get("sort") || "desc";
+
+  useEffect(() => {
+    setSearch((prev: typeof search) => ({
+      ...prev,
+      destination,
+      checkin,
+      checkout,
+      category: refinedCategory(category),
+      price,
+      sort,
+    }));
+  }, [destination, checkin, checkout, category, price, sort, setSearch]);
 
   return (
     <>
