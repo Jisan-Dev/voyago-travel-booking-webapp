@@ -26,7 +26,13 @@ export async function getAllHotels(
   await checkAuth();
   await connectToDatabase();
 
-  console.log(destination, typeof checkin, checkout, category);
+  console.log(
+    "asassssssssssssssssssssssssssssssssss",
+    destination,
+    typeof checkin,
+    checkout,
+    category,
+  );
 
   const query: Record<string, any> = {};
   if (destination) {
@@ -72,7 +78,7 @@ export async function getAllHotels(
 
   const hotels = await Hotels.find(query)
     .select(["thumbNailUrl", "name", "highRate", "lowRate", "city", "propertyCategory"])
-    // .sort(sort === "desc" ? { lowRate: -1 } : { lowRate: 1 })
+    .sort(sort === "desc" ? { lowRate: -1 } : { lowRate: 1 })
     .lean();
   console.log(query, "hotels", hotels);
 

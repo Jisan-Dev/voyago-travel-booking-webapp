@@ -31,6 +31,7 @@ export type SearchTerm = {
 };
 
 const Search = ({ fromList, destination, checkin, checkout }: Props) => {
+  const pathName = usePathname();
   const { data: session } = authClient.useSession();
   const { search, setSearch } = useContext<{
     search: HotelListProps;
@@ -67,13 +68,13 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
       return;
     }
 
-    // const params = new URLSearchParams(searchParams);
+    const params = new URLSearchParams(searchParams);
 
-    // params.set("destination", searchTerm.destination);
-    // if (searchTerm?.checkin && searchTerm?.checkout) {
-    //   params.set("checkin", searchTerm?.checkin);
-    //   params.set("checkout", searchTerm?.checkout);
-    // }
+    params.set("destination", searchTerm.destination);
+    if (searchTerm?.checkin && searchTerm?.checkout) {
+      params.set("checkin", searchTerm?.checkin);
+      params.set("checkout", searchTerm?.checkout);
+    }
 
     setSearch((prev: typeof search) => ({
       ...prev,
@@ -83,9 +84,10 @@ const Search = ({ fromList, destination, checkin, checkout }: Props) => {
     }));
 
     if (pathname.includes("hotels")) {
-      // router.replace(`${pathname}?${params.toString()}`);
+      const url = `${pathName}?${params.toString()}`;
+      window.history.replaceState(null, "", url);
     } else {
-      router.replace(`/hotels`);
+      router.push(`/hotels?${params.toString()}`);
     }
   };
 

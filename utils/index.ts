@@ -11,3 +11,10 @@ export const getDayDifference = (from: string, to: string) => {
 export const convertToSubCurrency = (amount: number, factor = 100) => {
   return Math.round(amount * factor);
 };
+
+export const refinedCategory = (category: string) => {
+  const decodedCategory = decodeURIComponent(category);
+  if (decodedCategory === "undefined") return "";
+  console.log("decoded", decodedCategory);
+  return decodedCategory;
+};

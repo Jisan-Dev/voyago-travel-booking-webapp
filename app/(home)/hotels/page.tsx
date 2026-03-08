@@ -5,12 +5,6 @@ import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
-export const refinedCategory = (category: string) => {
-  const decodedCategory = decodeURI(category);
-  if (decodedCategory === "undefined") return "";
-  return decodedCategory;
-};
-
 type HotelListPageProps = {
   searchParams: Promise<{
     destination: string;
@@ -29,6 +23,7 @@ const HotelListPage = async ({ searchParams }: HotelListPageProps) => {
   }
 
   const { destination, checkin, checkout, category, price, sort } = await searchParams;
+
   return (
     <>
       <section className="bg-[url('/hero-bg.jpg')] bg-cover bg-no-repeat bg-center pt-25 pb-15 relative">
