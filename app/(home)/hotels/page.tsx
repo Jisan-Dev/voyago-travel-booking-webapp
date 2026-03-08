@@ -10,19 +10,8 @@ import { redirect, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useContext, useEffect } from "react";
 import Component from "../loading";
 
-type HotelListPageProps = {
-  searchParams: Promise<{
-    destination: string;
-    checkin: string;
-    checkout: string;
-    category: string;
-    price: string;
-    sort: string;
-  }>;
-};
-
 const HotelListPage = () => {
-  const { search, setSearch } = useContext<{
+  const { setSearch } = useContext<{
     search: HotelListProps;
     setSearch: Dispatch<SetStateAction<HotelListProps>>;
   }>(SearchContext);
@@ -41,7 +30,7 @@ const HotelListPage = () => {
   const sort = searchParams.get("sort") || "desc";
 
   useEffect(() => {
-    setSearch((prev: typeof search) => ({
+    setSearch((prev: HotelListProps) => ({
       ...prev,
       destination,
       checkin,

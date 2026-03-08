@@ -14,7 +14,7 @@ const FilterByStarCategory = () => {
 
   const pathName = usePathname();
 
-  const { search, setSearch } = useContext<{
+  const { setSearch } = useContext<{
     search: HotelListProps;
     setSearch: Dispatch<SetStateAction<HotelListProps>>;
   }>(SearchContext);
@@ -46,7 +46,7 @@ const FilterByStarCategory = () => {
 
     const url = `${pathName}?${params.toString()}`;
     window.history.replaceState(null, "", url);
-    setSearch((prev: typeof search) => ({
+    setSearch((prev: HotelListProps) => ({
       ...prev,
       category: query.join("|"),
     }));
