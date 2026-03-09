@@ -2,7 +2,7 @@ import Navbar from "@/components/navbar";
 import "../globals.css";
 
 export const metadata = {
-  title: "Voyagp | Authentications",
+  title: "Voyago | Authentications",
   description: "Voyago is a hotel booking app.Find your stay. Book with confidence.",
 };
 
