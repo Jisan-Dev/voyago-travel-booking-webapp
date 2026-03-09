@@ -6,11 +6,10 @@ Voyago is a modern, full-stack web application designed for browsing, booking, a
 
 ### Live demo:
 
-> 🌐 https://voyago-travel-booking-webapp.vercel.app
+> 🌏 https://voyago-travel-booking-webapp.vercel.app
 
 <details open>
   <summary>🔑 <strong>Demo Credentials:</strong></summary>
-  <hr/>
   <ul>
   <li>➺ <strong>email :</strong> tagarazo@mailinator.com <br/></li>
   <li>➺ <strong>password :</strong> Pa$$w0rd!</li>
