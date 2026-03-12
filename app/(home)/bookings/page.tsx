@@ -23,21 +23,22 @@ const BookingsPage = async () => {
   });
 
   return (
-    <>
-      <section className="mt-25">
-        <div className="container">
+    <div className="min-h-screen bg-background text-foreground pb-20">
+      <section className="pt-24 lg:pt-32 pb-8 border-b border-border shadow-sm">
+        <div className="container max-w-5xl mx-auto px-4">
           <ProfileInfo />
         </div>
       </section>
-      <section>
-        <div className="container">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+      
+      <section className="py-12">
+        <div className="container max-w-5xl mx-auto px-4">
+          <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
             <PastBooking bookings={pastBookings} />
             <UpcomingBooking bookings={upcomingBookings} />
           </div>
         </div>
       </section>
-    </>
+    </div>
   );
 };
 

@@ -1,39 +1,32 @@
 import { auth } from "@/lib/auth";
 import { headers } from "next/headers";
-import Image from "next/image";
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const ProfileInfo = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
   const user = session?.user;
+
+  const initials = user?.name
+    ?.split(" ")
+    .filter(Boolean)
+    .map((name: string) => name[0].toUpperCase())
+    .join("");
+
   return (
-    <div className="flex flex-col items-center py-8 text-center">
-      <div className="relative max-h-45 max-w-45 rounded-full lg:mb-8 h-25 w-25 bg-orange-600 grid place-items-center text-4xl text-white">
-        {user?.image ? (
-          <Image
-            src={user?.image}
-            alt={user?.name}
-            width={90}
-            height={90}
-            className="rounded-full"
-            priority
-          />
-        ) : (
-          <span>
-            {user?.name
-              ?.split(" ")
-              .filter(Boolean)
-              .map((name: string) => name[0].toUpperCase())
-              .join("")}
-          </span>
-        )}
+    <div className="flex flex-col items-center py-10 text-center">
+      <Avatar className="h-28 w-28 lg:mb-6 mb-4 ring-2 ring-primary/20 ring-offset-2">
+        <AvatarImage src={user?.image || ""} alt={user?.name || "User profile"} />
+        <AvatarFallback className="bg-orange-600 text-white text-4xl">
+          {initials}
+        </AvatarFallback>
+      </Avatar>
+
+      <div className="space-y-1">
+        <h3 className="text-3xl font-semibold tracking-tight">{user?.name}</h3>
+        <p className="text-muted-foreground lg:text-lg">{user?.email}</p>
       </div>
 
-      <div>
-        <h3 className="text-2xl font-semibold lg:text-[28px]">{user?.name}</h3>
-        <p className="leading-[231%] lg:text-lg">{user?.email}</p>
-      </div>
-
-      <div className="w-3/4 border-b border-[#a4a4a4] py-6 lg:py-4"></div>
+      <div className="w-full max-w-md border-b py-6 lg:py-6"></div>
     </div>
   );
 };

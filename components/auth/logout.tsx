@@ -1,6 +1,7 @@
 "use client";
 
 import { authClient } from "@/lib/auth-client";
+import { LogOutIcon } from "lucide-react";
 import { useRouter } from "next/navigation";
 import { Button } from "../ui/button";
 
@@ -9,7 +10,7 @@ export default function Logout() {
   return (
     <Button
       variant={"ghost"}
-      className="text-primary hover:text-primary"
+      className="text-primary hover:text-primary max-sm:px-0"
       onClick={async () => {
         await authClient.signOut({
           fetchOptions: {
@@ -23,6 +24,7 @@ export default function Logout() {
         });
       }}
     >
+      <LogOutIcon />
       Sign Out
     </Button>
   );
