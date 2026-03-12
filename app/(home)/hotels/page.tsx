@@ -3,11 +3,14 @@
 import Filter from "@/components/filter";
 import HotelList, { HotelListProps } from "@/components/hotel/hotel-list";
 import Search from "@/components/search/search";
+import { Button } from "@/components/ui/button";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { authClient } from "@/lib/auth-client";
 import { SearchContext } from "@/providers/SearchProvider";
 import { refinedCategory } from "@/utils";
 import { redirect, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useContext, useEffect } from "react";
+import { IconFilter } from "@tabler/icons-react";
 import Component from "../loading";
 
 const HotelListPage = () => {
@@ -58,9 +61,31 @@ const HotelListPage = () => {
         </div>
       </section>
       <section className="py-12">
-        <div className="container grid grid-cols-12">
-          <Filter />
-          <HotelList />
+        <div className="container">
+          <div className="flex items-center justify-between mb-6 lg:hidden">
+            <h2 className="text-xl font-semibold">Hotels</h2>
+            <Sheet>
+              <SheetTrigger asChild>
+                <Button variant="outline" className="flex items-center gap-2">
+                  <IconFilter className="w-4 h-4" />
+                  Filters
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="left" className="w-[300px] overflow-y-auto">
+                <div className="mt-8">
+                  <Filter />
+                </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+          <div className="grid grid-cols-1 lg:grid-cols-12 gap-8">
+            <div className="hidden lg:block lg:col-span-3 border-r pr-6">
+              <Filter />
+            </div>
+            <div className="col-span-1 lg:col-span-9">
+              <HotelList />
+            </div>
+          </div>
         </div>
       </section>
     </>
