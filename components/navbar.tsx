@@ -65,15 +65,11 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
               </li> */}
 
               <li>
-                <Link href="#">About Us</Link>
-              </li>
-
-              <li>
-                <Link href="#">Contact us</Link>
-              </li>
-
-              <li>
                 <Link href="/bookings">Bookings</Link>
+              </li>
+
+              <li>
+                <Link href="/about">About Us</Link>
               </li>
 
               <li>
@@ -123,13 +119,8 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
                   className="w-48 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md shadow-lg p-3"
                 >
                   <DropdownMenuItem asChild>
-                    <Link href="#" className="w-full cursor-pointer">
+                    <Link href="/about" className="w-full cursor-pointer">
                       About Us
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link href="#" className="w-full cursor-pointer">
-                      Contact us
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>

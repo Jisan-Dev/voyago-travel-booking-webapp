@@ -8,9 +8,9 @@ import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { authClient } from "@/lib/auth-client";
 import { SearchContext } from "@/providers/SearchProvider";
 import { refinedCategory } from "@/utils";
+import { IconFilter } from "@tabler/icons-react";
 import { redirect, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useContext, useEffect } from "react";
-import { IconFilter } from "@tabler/icons-react";
 import Component from "../loading";
 
 const HotelListPage = () => {
@@ -72,7 +72,7 @@ const HotelListPage = () => {
                 </Button>
               </SheetTrigger>
               <SheetContent side="left" className="w-[300px] overflow-y-auto">
-                <div className="mt-8">
+                <div className="mt-8 pl-4">
                   <Filter />
                 </div>
               </SheetContent>
