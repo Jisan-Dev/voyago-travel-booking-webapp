@@ -8,7 +8,7 @@ const RegistrationPage = async () => {
   if (session?.user) return redirect("/");
   return (
     <section className="min-h-screen grid place-items-center">
-      <div className="max-w-112.5 w-full mx-auto p-6 border border-primary/20 rounded-lg shadow-md shadow-primary/30">
+      <div className="max-w-112.5 w-full mx-auto">
         <RegistrationForm />
         {/* <SocialLogins /> */}
       </div>

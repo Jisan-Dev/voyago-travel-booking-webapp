@@ -34,7 +34,7 @@ export default function LoginPage() {
 
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
-      <div className="max-w-md w-full p-8 border border-primary/20 rounded-lg shadow-md shadow-primary/30">
+      <div className="max-w-sm w-full">
         <AuthForm mode="login" handleSubmit={handleSubmit} />
       </div>
     </div>
