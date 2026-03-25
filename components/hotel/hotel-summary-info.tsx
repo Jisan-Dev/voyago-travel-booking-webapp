@@ -1,6 +1,7 @@
 "use client";
 
 import { getRatings, getReviewsCount } from "@/DAL";
+import { MapPin } from "lucide-react";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
@@ -65,19 +66,26 @@ const HotelSummaryInfo = ({
 
   return (
     <>
-      <div className={fromListPage ? "flex-1" : "flex-1 container"}>
-        <h2 className={fromListPage ? "font-bold text-lg" : "font-bold text-2xl text-primary"}>
-          {info?.name}
-        </h2>
-        <p>📍 {info?.city}</p>
-        <div className="flex gap-2 items-center my-4">
-          <div className="bg-primary px-2 h-8.75 rounded-sm text-neutral-900 place-items-center font-bold flex">
+      <div className={`${fromListPage ? "flex-1" : "flex-1 container"} flex flex-col gap-4`}>
+        <div className="space-y-1">
+          <h2 className={fromListPage ? "font-bold text-lg" : "font-bold text-2xl text-primary"}>
+            {info?.name}
+          </h2>
+          <p className="flex items-center gap-1 text-muted-foreground">
+            <MapPin className="w-4 h-4" />
+            {info?.city}
+          </p>
+        </div>
+        <div className="flex gap-2 items-center">
+          <div className="rounded-full bg-primary/10 text-primary px-2.5 h-8.75 flex items-center font-bold">
             {loading ? <Spinner /> : <span>{avgRating}</span>}
-            {ratingsArr.length > 0 && <span>{`(${ratingsArr.length})`}</span>}
+            {ratingsArr.length > 0 && (
+              <span className="text-xs ml-0.5">{`(${ratingsArr.length})`}</span>
+            )}
           </div>
           <div className="text-sm">
             <span className="font-semibold">{getRatingStatus(avgRating)}</span>
-            <p>
+            <p className="text-muted-foreground">
               {totalReviews === 0 ? (
                 <Link href="#" className="underline hover:text-primary transition-colors">
                   Be the first one to review
@@ -91,13 +99,9 @@ const HotelSummaryInfo = ({
           </div>
         </div>
         <div className="flex gap-2 items-center">
-          {/* <span className="bg-yellow-300 p-1 rounded-md text-sm dark:text-background">
-            {info?.propertyCategory} Star Property
-          </span> */}
           <Badge className="h-5.5">{info?.propertyCategory} Star Property</Badge>
 
           {info?.isBooked && (
-            // <span className="bg-red-300 text-red-950 p-1 px-2 rounded-md text-xs">BOOKED!</span>
             <Badge className="h-5.5" variant="destructive">
               BOOKED!
             </Badge>
@@ -105,17 +109,17 @@ const HotelSummaryInfo = ({
         </div>
       </div>
 
-      <div className="flex sm:flex-col sm:gap-2 sm:items-end sm:justify-center items-center justify-between max-sm:mt-4">
+      <div className="flex sm:flex-col sm:gap-2 sm:items-end sm:justify-center items-center justify-between sm:mt-0 mt-2">
         <div>
-          <h2 className="text-lg sm:text-2xl font-bold sm:text-right">
-            ${(info?.highRate + info?.lowRate) / 2}/night
+          <h2 className="text-lg sm:text-2xl text-primary font-extrabold sm:text-right">
+            ${(info?.highRate + info?.lowRate) / 2}
           </h2>
-          <p className="sm:text-right">Per Night for 1 Room</p>
+          <p className="text-muted-foreground text-sm sm:text-right">Per Night for 1 Room</p>
         </div>
         {fromListPage ? (
           <Link
             href={`/hotels/${info._id}?checkin=${checkin}&checkout=${checkout}`}
-            className="btn-primary text-neutral-900!"
+            className="btn-primary text-neutral-900! cursor-pointer w-auto"
           >
             Details
           </Link>
