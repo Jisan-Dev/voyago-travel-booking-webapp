@@ -133,7 +133,11 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
                     <>
                       <div className="px-0.5 py-1.5 text-sm flex items-center gap-1">
                         <Avatar className="h-6 w-6">
-                          <AvatarImage src={user?.image || ""} alt={user?.name || "User profile"} />
+                          <AvatarImage
+                            src={user?.image || ""}
+                            referrerPolicy="no-referrer"
+                            alt={user?.name || "User profile"}
+                          />
                           <AvatarFallback className="bg-primary text-black text-xs! font-medium">
                             {initials}
                           </AvatarFallback>
