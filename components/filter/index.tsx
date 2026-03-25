@@ -4,17 +4,19 @@ import FilterByStarCategory from "./filter-by-star-category";
 
 const Filter = () => {
   return (
-    <>
-      <div className="col-span-3 space-y-4 border-r mr-8">
+    <div className="space-y-6">
+      <div className="pb-6 border-b">
         <SortHotel />
-
-        <FilterByPriceRange />
-
-        <FilterByStarCategory />
-
-        {/* <FilterByAmenities /> */}
       </div>
-    </>
+
+      <div className="pb-6 border-b">
+        <FilterByPriceRange />
+      </div>
+
+      <FilterByStarCategory />
+
+      {/* <FilterByAmenities /> */}
+    </div>
   );
 };
 

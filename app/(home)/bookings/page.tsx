@@ -33,8 +33,12 @@ const BookingsPage = async () => {
       <section className="py-12">
         <div className="container max-w-5xl mx-auto px-4">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
-            <PastBooking bookings={pastBookings} />
-            <UpcomingBooking bookings={upcomingBookings} />
+            <div className="order-2 lg:order-1">
+              <PastBooking bookings={pastBookings} />
+            </div>
+            <div className="order-1 lg:order-2">
+              <UpcomingBooking bookings={upcomingBookings} />
+            </div>
           </div>
         </div>
       </section>

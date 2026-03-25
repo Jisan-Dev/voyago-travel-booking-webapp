@@ -12,10 +12,10 @@ const HotelCard = ({
   checkout: string;
 }) => {
   return (
-    <div className="flex gap-6 border border-gray/20 p-4 rounded-md">
+    <div className="flex flex-col sm:flex-row gap-4 sm:gap-6 border border-gray/20 p-3 sm:p-4 rounded-md">
       <Image
         src={hotel.thumbNailUrl!}
-        className="max-h-40.5 max-w-60"
+        className="w-full sm:max-w-60 max-h-40.5 object-cover sm:object-none"
         alt={hotel?.name}
         width={240}
         height={165}
