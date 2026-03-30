@@ -16,11 +16,11 @@ const BookingsPage = async () => {
   const bookings = await getBookingsByUser(user?.id);
 
   const pastBookings = bookings.filter(
-    (booking: IBooking) => new Date().getTime() > new Date(booking.checkin).getTime(),
+    (booking: IBooking) => new Date().getTime() > new Date(booking.checkout).getTime(),
   );
 
   const upcomingBookings = bookings.filter((booking: IBooking) => {
-    return new Date().getTime() < new Date(booking.checkin).getTime();
+    return new Date().getTime() < new Date(booking.checkout).getTime();
   });
 
   const hasNoBookings = pastBookings.length === 0 && upcomingBookings.length === 0;
