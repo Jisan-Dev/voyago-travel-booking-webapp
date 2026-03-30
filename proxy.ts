@@ -8,9 +8,13 @@ export function proxy(request: NextRequest) {
   if (!session) {
     return NextResponse.redirect(new URL("login", request.url));
   }
-  return NextResponse.next();
+
+  const headers = new Headers(request.headers);
+  headers.set("x-current-path", request.nextUrl.pathname);
+
+  return NextResponse.next({ headers });
 }
 
 export const config = {
-  matcher: ["/bookings", "/hotels", "/hotels/:path*"],
+  matcher: ["/((?!api|_next/static|_next/image|favicon.ico).*)"],
 };

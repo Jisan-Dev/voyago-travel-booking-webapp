@@ -1,3 +1,4 @@
+import Navbar from "@/components/navbar";
 import { ThemeProvider } from "@/components/theme-provider";
 import SearchProvider from "@/providers/SearchProvider";
 import { Inter } from "next/font/google";
@@ -23,6 +24,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
             enableSystem
             disableTransitionOnChange
           >
+            <Navbar isLandingPage={true} showSideMenu={true} />
             {children}
             <Toaster theme="system" />
           </ThemeProvider>

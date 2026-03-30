@@ -60,16 +60,16 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
           <>
             {/* Desktop Menu */}
             <ul className="hidden md:flex items-center gap-6">
-              {/* <li>
-                <Link href="#">Recommended Places</Link>
-              </li> */}
-
               <li>
-                <Link href="/bookings">Bookings</Link>
+                <Link href="/">Home</Link>
               </li>
 
               <li>
                 <Link href="/about">About Us</Link>
+              </li>
+
+              <li>
+                <Link href="/bookings">Bookings</Link>
               </li>
 
               <li>
@@ -118,6 +118,11 @@ const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
                   align="end"
                   className="w-48 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md shadow-lg p-3"
                 >
+                  <DropdownMenuItem asChild>
+                    <Link href="/" className="w-full cursor-pointer">
+                      Home
+                    </Link>
+                  </DropdownMenuItem>
                   <DropdownMenuItem asChild>
                     <Link href="/about" className="w-full cursor-pointer">
                       About Us
