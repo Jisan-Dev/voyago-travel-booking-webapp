@@ -14,7 +14,7 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-const Navbar = async ({ isLandingPage = false, showSideMenu = true }) => {
+const Navbar = async ({ isLandingPage = true, showSideMenu = true }) => {
   const session = await auth.api.getSession({ headers: await headers() });
 
   const user = session?.user;
