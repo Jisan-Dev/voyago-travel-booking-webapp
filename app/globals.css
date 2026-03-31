@@ -193,3 +193,15 @@
     @apply mx-1;
   }
 }
+
+::selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  text-shadow: none;
+}
+
+::-moz-selection {
+  background: var(--primary);
+  color: var(--primary-foreground);
+  text-shadow: none;
+}
