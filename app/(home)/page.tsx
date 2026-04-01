@@ -32,13 +32,13 @@ export default async function Home() {
           </span>
 
           {/* <div className="mt-8 flex justify-center gap-4">
-            <button className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-md shadow-lg font-semibold">
-              Explore Hotels
-            </button>
-            <button className="bg-white/10 hover:bg-white/20 text-white px-5 py-3 rounded-md">
-              My Bookings
-            </button>
-          </div> */}
+              <button className="bg-rose-500 hover:bg-rose-600 text-white px-6 py-3 rounded-md shadow-lg font-semibold">
+                Explore Hotels
+              </button>
+              <button className="bg-white/10 hover:bg-white/20 text-white px-5 py-3 rounded-md">
+                My Bookings
+              </button>
+            </div> */}
 
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}

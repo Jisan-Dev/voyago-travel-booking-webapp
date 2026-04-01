@@ -1,10 +1,13 @@
 "use client";
 
 import { getRatings, getReviewsCount } from "@/DAL";
+import Search from "@/components/search/search";
 import { MapPin } from "lucide-react";
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
 import { Badge } from "../ui/badge";
+import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "../ui/dialog";
 import { Spinner } from "../ui/spinner";
 
 const HotelSummaryInfo = ({
@@ -24,6 +27,24 @@ const HotelSummaryInfo = ({
   const [totalReviews, setTotalReviews] = useState(0);
   const [ratingsArr, setRatingsArr] = useState<any[]>([]);
   const [loading, setLoading] = useState(true);
+  const [showSearchModal, setShowSearchModal] = useState(false);
+
+  const router = useRouter();
+
+  const isMissingBookingData = !info?._id || !checkin || !checkout;
+
+  const handleSearchComplete = (searchTerm: {
+    destination: string;
+    checkin: string;
+    checkout: string;
+  }) => {
+    setShowSearchModal(false);
+    if (info?._id && searchTerm.checkin && searchTerm.checkout) {
+      router.push(
+        `/hotels/${info._id}/payment?checkin=${searchTerm.checkin}&checkout=${searchTerm.checkout}`,
+      );
+    }
+  };
 
   useEffect(() => {
     const fetchData = async () => {
@@ -124,19 +145,43 @@ const HotelSummaryInfo = ({
             Details
           </Link>
         ) : (
-          <Link
-            href={
-              info?.isBooked
-                ? "#"
-                : `/hotels/${info._id}/payment?checkin=${checkin}&checkout=${checkout}`
-            }
-          >
-            <button disabled={info?.isBooked} className="btn-primary text-neutral-900!">
-              Book
-            </button>
-          </Link>
+          <>
+            {isMissingBookingData ? (
+              <button
+                disabled={info?.isBooked}
+                onClick={() => setShowSearchModal(true)}
+                className="btn-primary text-neutral-900!"
+              >
+                Book
+              </button>
+            ) : (
+              <Link
+                href={
+                  info?.isBooked
+                    ? "#"
+                    : `/hotels/${info._id}/payment?checkin=${checkin}&checkout=${checkout}`
+                }
+              >
+                <button disabled={info?.isBooked} className="btn-primary text-neutral-900!">
+                  Book
+                </button>
+              </Link>
+            )}
+          </>
         )}
       </div>
+
+      <Dialog open={showSearchModal} onOpenChange={setShowSearchModal}>
+        <DialogContent className="sm:max-w-2xl">
+          <DialogHeader>
+            <DialogTitle>Complete Your Booking</DialogTitle>
+            <DialogDescription>
+              Please select your destination and travel dates to proceed.
+            </DialogDescription>
+          </DialogHeader>
+          <Search onSearch={handleSearchComplete} buttonLabel="Proceed to Payment" />
+        </DialogContent>
+      </Dialog>
     </>
   );
 };

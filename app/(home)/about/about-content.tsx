@@ -358,12 +358,17 @@ export default function AboutContent() {
           <motion.div
             initial={{ opacity: 0, scale: 0.9 }}
             whileInView={{ opacity: 1, scale: 1 }}
-            viewport={{ once: true, margin: "-100px" }}
+            viewport={{ once: true, margin: "-50px" }}
             transition={{ duration: 0.6, delay: 0.2 }}
           >
-            <Button size="lg" className="bg-white text-primary hover:bg-white/90">
-              <Link href="/hotels">Start Exploring Hotels</Link>
-            </Button>
+            <Link href="/hotels">
+              <Button
+                size="lg"
+                className="bg-white text-primary font-bold tracking-wide hover:bg-white/80"
+              >
+                Start Exploring Hotels
+              </Button>
+            </Link>
           </motion.div>
         </div>
       </section>

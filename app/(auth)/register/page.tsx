@@ -7,7 +7,7 @@ const RegistrationPage = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
   if (session?.user) return redirect("/");
   return (
-    <section className="min-h-screen grid place-items-center">
+    <section className="flex min-h-svh w-full items-center justify-center p-6 md:p-10 max-sm:pt-16">
       <div className="max-w-112.5 w-full mx-auto">
         <RegistrationForm />
         {/* <SocialLogins /> */}

@@ -11,7 +11,7 @@ const Summary = ({
   checkout: string;
 }) => {
   return (
-    <section className="py-4 mt-25 ">
+    <section className="py-4 pt-25">
       <div className="flex container">
         <HotelSummaryInfo
           fromListPage={false}

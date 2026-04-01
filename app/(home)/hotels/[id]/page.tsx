@@ -14,11 +14,11 @@ const HotelDetailsPage = async ({
   const { checkin, checkout } = await searchParams;
   const hotelInfo = await getHotelById(id, checkin, checkout);
   return (
-    <>
+    <section className="static min-h-screen">
       <Summary hotelInfo={hotelInfo} checkin={checkin} checkout={checkout} />
       <Gallery gallery={hotelInfo.gallery} />
       <Overview overview={hotelInfo.overview} />
-    </>
+    </section>
   );
 };
 
