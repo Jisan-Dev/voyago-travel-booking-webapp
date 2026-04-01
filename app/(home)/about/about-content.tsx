@@ -39,7 +39,7 @@ export default function AboutContent() {
   return (
     <div className="min-h-screen">
       {/* 1. Hero Section */}
-      <section className="relative h-[500px] md:h-[600px] flex items-center justify-center overflow-hidden">
+      <section className="relative h-125 md:h-150 flex items-center justify-center overflow-hidden">
         <div
           className="absolute inset-0 bg-[url('/hero-bg.jpg')] bg-cover bg-no-repeat bg-center"
           style={{ transform: "scale(1.1)" }}
@@ -94,25 +94,25 @@ export default function AboutContent() {
             >
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="bg-primary/10 rounded-xl p-6 flex items-center justify-center min-h-[150px]"
+                className="bg-primary/10 rounded-xl p-6 flex items-center justify-center min-h-37.5"
               >
                 <IconBuilding className="w-16 h-16 text-primary" />
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="bg-secondary/50 rounded-xl p-6 flex items-center justify-center min-h-[150px]"
+                className="bg-secondary/50 rounded-xl p-6 flex items-center justify-center min-h-37.5"
               >
                 <IconCalendar className="w-16 h-16 text-secondary" />
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="bg-muted rounded-xl p-6 flex items-center justify-center min-h-[150px]"
+                className="bg-muted rounded-xl p-6 flex items-center justify-center min-h-37.5"
               >
                 <IconShieldCheck className="w-16 h-16 text-primary" />
               </motion.div>
               <motion.div
                 whileHover={{ scale: 1.05 }}
-                className="bg-primary/5 rounded-xl p-6 flex items-center justify-center min-h-[150px]"
+                className="bg-primary/5 rounded-xl p-6 flex items-center justify-center min-h-37.5"
               >
                 <IconFilter className="w-16 h-16 text-primary" />
               </motion.div>

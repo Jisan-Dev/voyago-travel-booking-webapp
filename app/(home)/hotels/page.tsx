@@ -71,7 +71,7 @@ const HotelListPage = () => {
                   Filters
                 </Button>
               </SheetTrigger>
-              <SheetContent side="left" className="w-[300px] overflow-y-auto">
+              <SheetContent side="left" className="w-75 overflow-y-auto">
                 <div className="mt-8 pl-4">
                   <Filter />
                 </div>
