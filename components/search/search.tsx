@@ -12,7 +12,7 @@ import {
 import { authClient } from "@/lib/auth-client";
 import { SearchContext } from "@/providers/SearchProvider";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
-import { Dispatch, SetStateAction, useContext, useState } from "react";
+import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import { toast } from "sonner";
 import { DatePickerDemo } from "../day-picker";
 import { HotelListProps } from "../hotel/hotel-list";
@@ -35,14 +35,18 @@ export type SearchTerm = {
 const Search = ({ fromList, destination, checkin, checkout, onSearch, buttonLabel }: Props) => {
   const pathName = usePathname();
   const { data: session } = authClient.useSession();
+
   const { search, setSearch } = useContext<{
     search: HotelListProps;
     setSearch: Dispatch<SetStateAction<HotelListProps>>;
   }>(SearchContext);
+
   const searchParams = useSearchParams();
   const pathname = usePathname();
   const router = useRouter();
 
+  const [cities, setCities] = useState<string[]>([]);
+  const [citiesLoading, setCitiesLoading] = useState(false);
   const [searchTerm, setSearchTerm] = useState<SearchTerm>({
     destination: destination || search.destination || "",
     checkin: checkin || search.checkin || "",
@@ -98,6 +102,23 @@ const Search = ({ fromList, destination, checkin, checkout, onSearch, buttonLabe
     }
   };
 
+  useEffect(() => {
+    const fetchCities = async () => {
+      try {
+        setCitiesLoading(true);
+        const res = await fetch("/api/cities");
+        const data = await res.json();
+        setCities(data);
+      } catch (error) {
+        console.error("Error fetching cities:", error);
+      } finally {
+        setCitiesLoading(false);
+      }
+    };
+
+    fetchCities();
+  }, []);
+
   return (
     <>
       <div className="lg:max-h-62.5 mt-6">
@@ -105,23 +126,26 @@ const Search = ({ fromList, destination, checkin, checkout, onSearch, buttonLabe
           {!onSearch && (
             <div>
               <span>Destination</span>
-              <Select onValueChange={handleDestinationChange} defaultValue={searchTerm.destination}>
+              <Select
+                onValueChange={handleDestinationChange}
+                defaultValue={searchTerm.destination}
+                disabled={citiesLoading}
+              >
                 <SelectTrigger className="w-full bg-transparent justify-between text-left font-normal py-5 border-neutral-900/40 mt-2 cursor-pointer">
-                  <SelectValue placeholder="Select a destination" />
+                  <SelectValue
+                    placeholder={
+                      citiesLoading ? "Destinations are loading..." : "Select a destination"
+                    }
+                  />
                 </SelectTrigger>
                 <SelectContent>
                   <SelectGroup>
                     <SelectLabel>Destinations</SelectLabel>
-                    <SelectItem value="Puglia">Puglia</SelectItem>
-                    <SelectItem value="Frejus">Frejus</SelectItem>
-                    <SelectItem value="Kerkira">Kerkira</SelectItem>
-                    <SelectItem value="Karlovasi">Karlovasi</SelectItem>
-                    <SelectItem value="Saint-Denis">Saint-Denis</SelectItem>
-                    <SelectItem value="Cergy">Cergy</SelectItem>
-                    <SelectItem value="Paris">Paris</SelectItem>
-                    <SelectItem value="Le Pré-Saint-Gervais">Le Pré-Saint-Gervais</SelectItem>
-                    <SelectItem value="Calvi">Calvi</SelectItem>
-                    <SelectItem value="Catania">Catania</SelectItem>
+                    {cities.map((city) => (
+                      <SelectItem key={city} value={city}>
+                        {city}
+                      </SelectItem>
+                    ))}
                   </SelectGroup>
                 </SelectContent>
               </Select>

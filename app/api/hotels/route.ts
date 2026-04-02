@@ -9,14 +9,6 @@ export async function POST(req: Request) {
     await connectToDatabase();
 
     const { destination, checkin, checkout, category, price, sort } = await req.json();
-    console.log(
-      "asassssssssssssssssssssssssssssssssss",
-      destination,
-      typeof checkin,
-      checkout,
-      category,
-      price,
-    );
 
     const query: Record<string, any> = {};
 

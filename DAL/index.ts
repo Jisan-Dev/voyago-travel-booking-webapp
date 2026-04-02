@@ -26,14 +26,6 @@ export async function getAllHotels(
   await checkAuth();
   await connectToDatabase();
 
-  console.log(
-    "asassssssssssssssssssssssssssssssssss",
-    destination,
-    typeof checkin,
-    checkout,
-    category,
-  );
-
   const query: Record<string, any> = {};
   if (destination) {
     query.city = "Puglia";
