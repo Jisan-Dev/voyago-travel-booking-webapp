@@ -1,3 +1,5 @@
+import { SearchTerm } from "@/types";
+
 export const isDateInBetween = (date: string, start: string, end: string) => {
   return (
     new Date(date).getTime() >= new Date(start).getTime() &&
@@ -17,4 +19,15 @@ export const refinedCategory = (category: string) => {
   if (decodedCategory === "undefined") return "";
   console.log("decoded", decodedCategory);
   return decodedCategory;
+};
+
+export const isValidSearch = (searchState: SearchTerm, fromDetailsPage: boolean = false) => {
+  if (!fromDetailsPage && !searchState.destination) return false;
+  // if (
+  //   !fromDetailsPage &&
+  //   searchState.destination &&
+  //   (!searchState.checkin || !searchState.checkout)
+  // )
+  //   return true;
+  return new Date(searchState.checkin).getTime() <= new Date(searchState.checkout).getTime();
 };

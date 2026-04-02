@@ -1,27 +1,18 @@
 "use client";
 
 import { SearchContext } from "@/providers/SearchProvider";
-import { IHotel } from "@/types";
+import { IHotel, SearchContextWithFilters } from "@/types";
 import { Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 import HotelCardSkeleton from "../card-skeleton";
 import HotelCard from "./hotel-card";
 import NoHotels from "./no-hotels";
 
-export type HotelListProps = {
-  destination: string;
-  checkin: string;
-  checkout: string;
-  category: string;
-  price: string;
-  sort: string;
-};
-
 const HotelList = () => {
   const [hotels, setHotels] = useState<IHotel[]>([]);
   const [loading, setLoading] = useState<boolean>(true);
   const { search } = useContext<{
-    search: HotelListProps;
-    setSearch: Dispatch<SetStateAction<HotelListProps>>;
+    search: SearchContextWithFilters;
+    setSearch: Dispatch<SetStateAction<SearchContextWithFilters>>;
   }>(SearchContext);
   console.log(search);
   const { destination, checkin, checkout, category, price, sort } = search;

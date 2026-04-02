@@ -29,3 +29,18 @@ export interface IBooking {
   checkin: string;
   checkout: string;
 }
+
+export interface SearchTerm {
+  destination: string;
+  checkin: string;
+  checkout: string;
+}
+
+export interface SearchContextWithFilters {
+  destination: string;
+  checkin: string;
+  checkout: string;
+  category: string;
+  price: string;
+  sort: string;
+}
