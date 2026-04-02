@@ -15,6 +15,12 @@ export const auth = betterAuth({
   advanced: {
     cookiePrefix: "better-auth-voyago",
   },
+  session: {
+    cookieCache: {
+      enabled: true,
+      maxAge: 5 * 60, // Cache duration in seconds (5 minutes)
+    },
+  },
   emailAndPassword: { enabled: true },
   socialProviders: {
     google: {
