@@ -12,7 +12,7 @@ export async function generateStaticParams() {
   const hotels = await Hotels.find().select("_id");
 
   return hotels.map((hotel: IHotel) => ({
-    id: hotel._id,
+    id: hotel._id?.toString() || "",
   }));
 }
 
