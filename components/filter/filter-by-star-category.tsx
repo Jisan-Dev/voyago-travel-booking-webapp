@@ -2,10 +2,10 @@
 "use client";
 
 import { SearchContext } from "@/providers/SearchProvider";
+import { SearchContextWithFilters } from "@/types";
 import { refinedCategory } from "@/utils";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import { HotelListProps } from "../hotel/hotel-list";
 
 const FilterByStarCategory = () => {
   const [query, setQuery] = useState<string[]>([]);
@@ -15,8 +15,8 @@ const FilterByStarCategory = () => {
   const pathName = usePathname();
 
   const { setSearch } = useContext<{
-    search: HotelListProps;
-    setSearch: Dispatch<SetStateAction<HotelListProps>>;
+    search: SearchContextWithFilters;
+    setSearch: Dispatch<SetStateAction<SearchContextWithFilters>>;
   }>(SearchContext);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -46,7 +46,7 @@ const FilterByStarCategory = () => {
 
     const url = `${pathName}?${params.toString()}`;
     window.history.replaceState(null, "", url);
-    setSearch((prev: HotelListProps) => ({
+    setSearch((prev: SearchContextWithFilters) => ({
       ...prev,
       category: query.join("|"),
     }));

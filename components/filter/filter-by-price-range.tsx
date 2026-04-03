@@ -2,9 +2,9 @@
 "use client";
 
 import { SearchContext } from "@/providers/SearchProvider";
+import { SearchContextWithFilters } from "@/types";
 import { usePathname, useSearchParams } from "next/navigation";
 import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
-import { HotelListProps } from "../hotel/hotel-list";
 
 const FilterByPriceRange = () => {
   const [query, setQuery] = useState<string[]>([]);
@@ -12,7 +12,7 @@ const FilterByPriceRange = () => {
   const params = new URLSearchParams(searchParams);
   const pathname = usePathname();
   const { setSearch } = useContext<{
-    setSearch: Dispatch<SetStateAction<HotelListProps>>;
+    setSearch: Dispatch<SetStateAction<SearchContextWithFilters>>;
   }>(SearchContext);
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -43,7 +43,7 @@ const FilterByPriceRange = () => {
     // router.replace(`${pathname}?${params.toString()}`);
     const url = `${pathname}?${params.toString()}`;
     window.history.replaceState(null, "", url);
-    setSearch((prev: HotelListProps) => ({
+    setSearch((prev: SearchContextWithFilters) => ({
       ...prev,
       price: query.join("|"),
     }));
