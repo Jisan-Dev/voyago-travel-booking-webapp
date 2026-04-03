@@ -3,10 +3,10 @@
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { SearchTerm } from "@/types";
 import { format } from "date-fns";
 import { Calendar1Icon } from "lucide-react";
 import * as React from "react";
-import { SearchTerm } from "./search/search";
 
 export function DatePickerDemo({
   setState,
