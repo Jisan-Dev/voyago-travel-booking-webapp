@@ -3,17 +3,24 @@ import { Hotels } from "@/lib/models/hotel";
 import { connectToDatabase } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 
-export async function POST(req: Request) {
+export async function GET(req: Request) {
   try {
     await checkAuth();
     await connectToDatabase();
 
-    const { destination, checkin, checkout, category, price, sort } = await req.json();
+    const { searchParams } = new URL(req.url);
+
+    const destination = searchParams.get("destination");
+    const checkin = searchParams.get("checkin");
+    const checkout = searchParams.get("checkout");
+    const category = searchParams.get("category");
+    const price = searchParams.get("price");
+    const sort = searchParams.get("sort");
 
     const query: Record<string, any> = {};
 
     if (destination) {
-      query.city = destination;
+      query.city = destination?.trim();
     }
 
     if (category) {

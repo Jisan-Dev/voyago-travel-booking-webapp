@@ -22,20 +22,12 @@ const HotelList = () => {
       try {
         setLoading(true);
         console.log("before await");
-        const res = await fetch("/api/hotels", {
-          method: "POST",
-          headers: {
-            "Content-Type": "application/json",
+        const res = await fetch(
+          `/api/hotels?destination=${destination}&checkin=${checkin}&checkout=${checkout}&category=${category}&price=${price}&sort=${sort}`,
+          {
+            cache: "force-cache",
           },
-          body: JSON.stringify({
-            destination,
-            checkin,
-            checkout,
-            category,
-            price,
-            sort,
-          }),
-        });
+        );
 
         if (!res.ok) {
           throw new Error("Failed to fetch hotels");

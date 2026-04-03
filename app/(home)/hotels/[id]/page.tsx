@@ -1,11 +1,14 @@
 import Gallery from "@/components/hotel/details/gallery";
 import Overview from "@/components/hotel/details/overview";
 import Summary from "@/components/hotel/details/summary";
-import { getAllHotels, getHotelById } from "@/DAL";
+import { getHotelById } from "@/DAL";
 import { IHotel } from "@/types";
 
 export async function generateStaticParams() {
-  const hotels = await getAllHotels();
+  const res = await fetch("/api/hotels", {
+    cache: "force-cache",
+  });
+  const hotels = await res.json();
 
   return hotels.map((hotel: IHotel) => ({
     id: hotel._id,

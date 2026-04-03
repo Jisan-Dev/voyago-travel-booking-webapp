@@ -24,7 +24,7 @@ const RegistrationForm = () => {
         console.log("Error: ", err);
       },
     });
-    console.log("Response: ", res);
+    // console.log("Response: ", res);
   }
 
   return (
