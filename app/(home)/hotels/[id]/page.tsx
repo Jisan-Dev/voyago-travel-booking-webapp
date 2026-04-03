@@ -1,5 +1,3 @@
-export const dynamicParams = true;
-
 import Gallery from "@/components/hotel/details/gallery";
 import Overview from "@/components/hotel/details/overview";
 import Summary from "@/components/hotel/details/summary";
