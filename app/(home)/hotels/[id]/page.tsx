@@ -16,7 +16,7 @@ export async function generateStaticParams() {
   const hotels = await res.json();
 
   return hotels.map((hotel: IHotel) => ({
-    id: hotel._id,
+    id: hotel._id?.toString(),
   }));
 }
 
