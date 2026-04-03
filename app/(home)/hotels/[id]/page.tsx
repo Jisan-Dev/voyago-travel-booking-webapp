@@ -2,17 +2,21 @@ import Gallery from "@/components/hotel/details/gallery";
 import Overview from "@/components/hotel/details/overview";
 import Summary from "@/components/hotel/details/summary";
 import { getHotelById } from "@/DAL";
-import { Hotels } from "@/lib/models/hotel";
-import { connectToDatabase } from "@/lib/mongodb";
 import { IHotel } from "@/types";
 
 export async function generateStaticParams() {
-  await connectToDatabase();
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hotels`, {
+    cache: "force-cache",
+  });
 
-  const hotels = await Hotels.find().select("_id");
+  if (!res.ok) {
+    throw new Error("Failed to fetch hotels");
+  }
+
+  const hotels = await res.json();
 
   return hotels.map((hotel: IHotel) => ({
-    id: hotel._id?.toString(),
+    id: hotel._id,
   }));
 }
 
