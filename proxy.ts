@@ -6,7 +6,14 @@ export function proxy(request: NextRequest) {
   const session = getSessionCookie(request, { cookiePrefix: "better-auth-voyago" });
 
   if (!session) {
-    return NextResponse.redirect(new URL("login", request.url));
+    const loginUrl = new URL("/login", request.url);
+
+    // ✅ include BOTH pathname + search params
+    const fullPath = request.nextUrl.pathname + request.nextUrl.search;
+
+    // store the original path
+    loginUrl.searchParams.set("redirect", fullPath);
+    return NextResponse.redirect(loginUrl);
   }
 
   const headers = new Headers(request.headers);

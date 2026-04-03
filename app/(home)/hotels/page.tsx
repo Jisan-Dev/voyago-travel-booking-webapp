@@ -1,12 +1,13 @@
 "use client";
 
 import Filter from "@/components/filter";
-import HotelList, { HotelListProps } from "@/components/hotel/hotel-list";
+import HotelList from "@/components/hotel/hotel-list";
 import Search from "@/components/search/search";
 import { Button } from "@/components/ui/button";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
 import { authClient } from "@/lib/auth-client";
 import { SearchContext } from "@/providers/SearchProvider";
+import { SearchContextWithFilters } from "@/types";
 import { refinedCategory } from "@/utils";
 import { IconFilter } from "@tabler/icons-react";
 import { redirect, useSearchParams } from "next/navigation";
@@ -15,10 +16,12 @@ import Component from "../loading";
 
 const HotelListPage = () => {
   const { setSearch } = useContext<{
-    search: HotelListProps;
-    setSearch: Dispatch<SetStateAction<HotelListProps>>;
+    search: SearchContextWithFilters;
+    setSearch: Dispatch<SetStateAction<SearchContextWithFilters>>;
   }>(SearchContext);
+
   const { data, isPending } = authClient.useSession();
+
   if (!data?.user && !isPending) {
     redirect("/login");
   }
@@ -33,7 +36,7 @@ const HotelListPage = () => {
   const sort = searchParams.get("sort") || "desc";
 
   useEffect(() => {
-    setSearch((prev: HotelListProps) => ({
+    setSearch((prev: SearchContextWithFilters) => ({
       ...prev,
       destination,
       checkin,

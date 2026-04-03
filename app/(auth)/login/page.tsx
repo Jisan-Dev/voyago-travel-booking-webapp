@@ -2,12 +2,15 @@
 
 import { AuthForm } from "@/components/auth-form";
 import { authClient } from "@/lib/auth-client";
-import { redirect } from "next/navigation";
+import { redirect, useSearchParams } from "next/navigation";
 import { SubmitEvent } from "react";
 
 export default function LoginPage() {
   const { data: session } = authClient.useSession();
-  if (session && session?.user) return redirect("/");
+  const searchParams = useSearchParams();
+  const redirectUser = searchParams.get("redirect") || "/";
+
+  if (session && session?.user) redirect("/");
 
   const handleSubmit = async (e: SubmitEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -19,7 +22,7 @@ export default function LoginPage() {
     const formData = {
       email: data.get("email") as string,
       password: data.get("password") as string,
-      callbackURL: process.env.NEXT_PUBLIC_BASE_URL, // it will redirect & also reload the page (optional, but reloading is good to fetch the session again after login is successful to avoid stale session or ensure session is properly set)
+      callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}${redirectUser}`, // it will redirect & also reload the page (optional, but reloading is good to fetch the session again after login is successful to avoid stale session or ensure session is properly set)
     };
 
     await authClient.signIn.email(formData, {

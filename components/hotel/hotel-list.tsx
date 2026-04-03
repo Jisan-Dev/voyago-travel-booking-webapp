@@ -14,8 +14,9 @@ const HotelList = () => {
     search: SearchContextWithFilters;
     setSearch: Dispatch<SetStateAction<SearchContextWithFilters>>;
   }>(SearchContext);
-  console.log(search);
+
   const { destination, checkin, checkout, category, price, sort } = search;
+
   useEffect(() => {
     const fetchData = async () => {
       try {
@@ -56,8 +57,6 @@ const HotelList = () => {
 
     fetchData();
   }, [destination, checkin, checkout, category, price, sort]);
-
-  console.log(hotels);
 
   return (
     <div className="col-span-9">

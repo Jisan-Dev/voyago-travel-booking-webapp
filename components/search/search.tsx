@@ -1,12 +1,10 @@
 "use client";
 
-import { authClient } from "@/lib/auth-client";
 import { SearchContext } from "@/providers/SearchProvider";
 import { SearchContextWithFilters, SearchTerm } from "@/types";
 import { isValidSearch } from "@/utils";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
-import { toast } from "sonner";
 import CheckinDateInput from "./checkin-date-input";
 import CheckoutDateInput from "./checkout-date-input";
 import DestinationSelectInput from "./destination-select-input";
@@ -22,7 +20,7 @@ type Props = {
 
 const Search = ({ fromList, destination, checkin, checkout, onSearch, buttonLabel }: Props) => {
   const pathName = usePathname();
-  const { data: session } = authClient.useSession();
+  // const { data: session } = authClient.useSession();
 
   const { search, setSearch } = useContext<{
     search: SearchContextWithFilters;
@@ -43,10 +41,10 @@ const Search = ({ fromList, destination, checkin, checkout, onSearch, buttonLabe
   const allowSearch = isValidSearch(searchTerm, fromDetailsPage);
 
   const handleSearch = () => {
-    if (!session?.user) {
-      toast.error("Please login to continue!");
-      return;
-    }
+    // if (!session?.user) {
+    //   toast.error("Please login to continue!");
+    //   return;
+    // }
 
     if (onSearch) {
       onSearch(searchTerm);
