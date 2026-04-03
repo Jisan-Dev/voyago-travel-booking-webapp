@@ -1,11 +1,11 @@
-import { findBookings } from "@/DAL";
+import { checkAuth, findBookings } from "@/DAL";
 import { Hotels } from "@/lib/models/hotel";
 import { connectToDatabase } from "@/lib/mongodb";
 import { NextResponse } from "next/server";
 
 export async function GET(req: Request) {
   try {
-    // await checkAuth();
+    await checkAuth();
     await connectToDatabase();
 
     const { searchParams } = new URL(req.url);
