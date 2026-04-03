@@ -10,12 +10,12 @@ export async function GET(req: Request) {
 
     const { searchParams } = new URL(req.url);
 
-    const destination = searchParams.get("destination");
-    const checkin = searchParams.get("checkin");
-    const checkout = searchParams.get("checkout");
-    const category = searchParams.get("category");
-    const price = searchParams.get("price");
-    const sort = searchParams.get("sort");
+    const destination = searchParams.get("destination") || "";
+    const checkin = searchParams.get("checkin") || "";
+    const checkout = searchParams.get("checkout") || "";
+    const category = searchParams.get("category") || "";
+    const price = searchParams.get("price") || "";
+    const sort = searchParams.get("sort") || "";
 
     const query: Record<string, any> = {};
 
