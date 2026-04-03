@@ -16,12 +16,12 @@ export async function checkAuth() {
 }
 
 export async function getAllHotels(
-  destination: string,
-  checkin: string,
-  checkout: string,
-  category: string,
-  price: string,
-  sort: string,
+  destination?: string,
+  checkin?: string,
+  checkout?: string,
+  category?: string,
+  price?: string,
+  sort?: string,
 ) {
   await checkAuth();
   await connectToDatabase();
