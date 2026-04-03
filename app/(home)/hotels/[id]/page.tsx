@@ -5,7 +5,7 @@ import { getHotelById } from "@/DAL";
 import { IHotel } from "@/types";
 
 export async function generateStaticParams() {
-  const res = await fetch("/api/hotels", {
+  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hotels`, {
     cache: "force-cache",
   });
   const hotels = await res.json();
