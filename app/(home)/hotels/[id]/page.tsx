@@ -1,3 +1,5 @@
+export const dynamicParams = true;
+
 import Gallery from "@/components/hotel/details/gallery";
 import Overview from "@/components/hotel/details/overview";
 import Summary from "@/components/hotel/details/summary";
@@ -5,19 +7,24 @@ import { getHotelById } from "@/DAL";
 import { IHotel } from "@/types";
 
 export async function generateStaticParams() {
-  const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hotels`, {
-    cache: "force-cache",
-  });
+  try {
+    const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hotels`, {
+      cache: "force-cache",
+    });
 
-  if (!res.ok) {
-    throw new Error("Failed to fetch hotels");
+    if (!res.ok) {
+      throw new Error("Failed to fetch hotels");
+    }
+
+    const hotels = await res.json();
+
+    return hotels.map((hotel: IHotel) => ({
+      id: hotel._id?.toString(),
+    }));
+  } catch (error) {
+    console.error(error);
+    return [];
   }
-
-  const hotels = await res.json();
-
-  return hotels.map((hotel: IHotel) => ({
-    id: hotel._id?.toString(),
-  }));
 }
 
 const HotelDetailsPage = async ({
