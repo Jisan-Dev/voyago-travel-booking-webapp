@@ -1,3 +1,5 @@
+export const dynamicParams = true;
+
 import Gallery from "@/components/hotel/details/gallery";
 import Overview from "@/components/hotel/details/overview";
 import Summary from "@/components/hotel/details/summary";
@@ -5,11 +7,7 @@ import { getHotelById } from "@/DAL";
 import { IHotel } from "@/types";
 
 export async function generateStaticParams() {
-  // fetch all hotels to generate static paths for each hotel details page. This is necessary because we are using dynamic routes for hotel details pages and we want to pre-render them at build time for better performance and SEO.
-
-  // we must have to use try catch block here because if there is any error while fetching hotels, we don't want to break the build process, instead we will return an empty array and the pages will be generated at runtime when the user visits them for the first time (fallback: 'blocking').
   try {
-    // in generateStaticParams we cannot have relative API calls, we have to use absolute URL with the base URL of the application because this function runs at build time and does not have access to the request context.
     const res = await fetch(`${process.env.NEXT_PUBLIC_BASE_URL}/api/hotels`, {
       cache: "force-cache",
     });
