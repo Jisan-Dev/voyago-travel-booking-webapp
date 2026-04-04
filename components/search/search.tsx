@@ -3,6 +3,7 @@
 import { SearchContext } from "@/providers/SearchProvider";
 import { SearchContextWithFilters, SearchTerm } from "@/types";
 import { isValidSearch } from "@/utils";
+import { SearchIcon } from "lucide-react";
 import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useContext, useState } from "react";
 import CheckinDateInput from "./checkin-date-input";
@@ -89,7 +90,10 @@ const Search = ({ fromList, destination, checkin, checkout, onSearch, buttonLabe
       </div>
 
       <button onClick={handleSearch} disabled={!allowSearch} className="search-btn">
-        🔍️ {buttonLabel || (fromList ? "Modify Search" : "Search")}
+        <div className="flex items-center gap-1">
+          <SearchIcon className="size-5" />
+          <span>{buttonLabel || (fromList ? "Modify Search" : "Search")}</span>
+        </div>
       </button>
     </>
   );
