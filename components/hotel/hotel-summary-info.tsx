@@ -1,6 +1,6 @@
 "use client";
 
-import { getRatings, getReviewsCount } from "@/DAL";
+import { getReviewsCount } from "@/DAL";
 import Search from "@/components/search/search";
 import { MapPin } from "lucide-react";
 import Link from "next/link";
@@ -50,7 +50,16 @@ const HotelSummaryInfo = ({
     const fetchData = async () => {
       try {
         const totalReviews = await getReviewsCount(info?._id);
-        const ratingsArr = await getRatings(info?._id);
+        const ratingsRes = await fetch(`/api/ratings?hotelId=${info?._id}`, {
+          cache: "force-cache",
+        });
+
+        if (!ratingsRes.ok) {
+          throw new Error("Failed to fetch ratings");
+        }
+
+        const ratingsArr = await ratingsRes.json();
+
         setTotalReviews(totalReviews);
         setRatingsArr(ratingsArr);
       } catch (error) {
