@@ -55,7 +55,7 @@ const DestinationSelectInput = ({
       >
         <SelectTrigger className="w-full bg-transparent justify-between text-left font-normal py-5 border-neutral-900/40 mt-2 cursor-pointer">
           <SelectValue
-            placeholder={citiesLoading ? "Destinations are loading..." : "Select a destination"}
+            placeholder={citiesLoading ? "Destinations Loading..." : "Select a destination"}
           />
         </SelectTrigger>
         <SelectContent>
