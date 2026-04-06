@@ -4,12 +4,13 @@
 import { SearchContext } from "@/providers/SearchProvider";
 import { SearchContextWithFilters } from "@/types";
 import { refinedCategory } from "@/utils";
-import { usePathname, useSearchParams } from "next/navigation";
+import { usePathname, useRouter, useSearchParams } from "next/navigation";
 import { ChangeEvent, Dispatch, SetStateAction, useContext, useEffect, useState } from "react";
 
 const FilterByStarCategory = () => {
   const [query, setQuery] = useState<string[]>([]);
   const searchParams = useSearchParams();
+  const router = useRouter();
   const params = new URLSearchParams(searchParams);
 
   const pathName = usePathname();
@@ -35,7 +36,6 @@ const FilterByStarCategory = () => {
       setQuery(decodeURI(params.get("category") || "").split("|"));
     }
   }, []);
-  console.log("query", query);
 
   useEffect(() => {
     if (query.length) {
@@ -45,7 +45,8 @@ const FilterByStarCategory = () => {
     }
 
     const url = `${pathName}?${params.toString()}`;
-    window.history.replaceState(null, "", url);
+    // window.history.replaceState(null, "", url); //works
+    router.replace(url, { scroll: false });
     setSearch((prev: SearchContextWithFilters) => ({
       ...prev,
       category: query.join("|"),

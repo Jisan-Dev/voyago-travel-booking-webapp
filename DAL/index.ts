@@ -1,4 +1,4 @@
-"use server";
+"server only";
 
 import { auth } from "@/lib/auth";
 import { Bookings } from "@/lib/models/booking";

@@ -1,6 +1,5 @@
 "use client";
 
-import { getReviewsCount } from "@/DAL";
 import Search from "@/components/search/search";
 import { MapPin } from "lucide-react";
 import Link from "next/link";
@@ -49,14 +48,19 @@ const HotelSummaryInfo = ({
   useEffect(() => {
     const fetchData = async () => {
       try {
-        const totalReviews = await getReviewsCount(info?._id);
-        const ratingsRes = await fetch(`/api/ratings?hotelId=${info?._id}`, {
-          cache: "force-cache",
-        });
+        const [countRes, ratingsRes] = await Promise.all([
+          fetch(`/api/reviews/count?hotelId=${info?._id}`, { cache: "force-cache" }),
+          fetch(`/api/ratings?hotelId=${info?._id}`, { next: { tags: [`ratings-${info?._id}`] } }),
+        ]);
 
         if (!ratingsRes.ok) {
           throw new Error("Failed to fetch ratings");
         }
+        if (!countRes.ok) {
+          throw new Error("Failed to fetch reviews count");
+        }
+
+        const { count: totalReviews } = await countRes.json();
 
         const ratingsArr = await ratingsRes.json();
 
