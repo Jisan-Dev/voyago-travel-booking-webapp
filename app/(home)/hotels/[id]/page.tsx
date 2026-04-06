@@ -7,13 +7,17 @@ import { connectToDatabase } from "@/lib/mongodb";
 import { IHotel } from "@/types";
 
 export async function generateStaticParams() {
-  await connectToDatabase();
+  try {
+    await connectToDatabase();
 
-  const hotels = await Hotels.find().select("_id");
-
-  return hotels.map((hotel: IHotel) => ({
-    id: hotel._id?.toString(),
-  }));
+    const hotels = await Hotels.find().select("_id");
+    return hotels.map((hotel: IHotel) => ({
+      id: hotel._id?.toString(),
+    }));
+  } catch (error) {
+    console.error("Error generating static params:", error);
+    return [];
+  }
 }
 const HotelDetailsPage = async ({
   params,
