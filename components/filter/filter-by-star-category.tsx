@@ -25,7 +25,7 @@ const FilterByStarCategory = () => {
 
   useEffect(() => {
     if (params.get("category")) {
-      setQuery(params.get("category")!.split("|"));
+      setQuery(decodeURI(params.get("category")!).split("|"));
     }
   }, []);
 
