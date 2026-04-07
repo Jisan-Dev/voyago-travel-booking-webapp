@@ -9,8 +9,7 @@ export default function Component() {
   return (
     <div className="flex h-screen w-full items-center justify-center">
       <div className="flex flex-col items-center space-y-4 text-primary">
-        <p className="text-2xl tracking-wide font-bold uppercase">Loading...</p>
-        <Spinner className="size-10" />
+        <Spinner className="size-12" />
       </div>
     </div>
   );

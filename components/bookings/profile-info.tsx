@@ -20,7 +20,7 @@ const ProfileInfo = async () => {
           referrerPolicy="no-referrer"
           alt={user?.name || "User profile"}
         />
-        <AvatarFallback className="bg-orange-600 text-white text-4xl">{initials}</AvatarFallback>
+        <AvatarFallback className="bg-primary text-white text-4xl">{initials}</AvatarFallback>
       </Avatar>
 
       <div className="space-y-1">

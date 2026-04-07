@@ -2,7 +2,7 @@ import { ThemeProvider } from "@/components/theme-provider";
 import SearchProvider from "@/providers/SearchProvider";
 import { Inter } from "next/font/google";
 import { Toaster } from "sonner";
-import "../app/globals.css";
+import "./globals.css";
 
 const inter = Inter({ subsets: ["latin"] });
 

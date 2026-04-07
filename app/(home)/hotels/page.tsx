@@ -12,7 +12,7 @@ import { refinedCategory } from "@/utils";
 import { IconFilter } from "@tabler/icons-react";
 import { redirect, useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useContext, useEffect } from "react";
-import Component from "../loading";
+import LoaderComponent from "../loading";
 
 const HotelListPage = () => {
   const { setSearch } = useContext<{
@@ -49,8 +49,8 @@ const HotelListPage = () => {
 
   if (isPending) {
     return (
-      <div className="flex items-center justify-center h-full">
-        <Component />
+      <div>
+        <LoaderComponent />
       </div>
     );
   }
