@@ -8,6 +8,14 @@ import { ListX } from "lucide-react";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
+export async function generateMetadata() {
+  return {
+    title: "Bookings - Voyago",
+    description:
+      "Manage your bookings with Voyago. View your past and upcoming stays, and update your reservation details.",
+  };
+}
+
 const BookingsPage = async () => {
   const session = await auth.api.getSession({ headers: await headers() });
   const user = session?.user;
