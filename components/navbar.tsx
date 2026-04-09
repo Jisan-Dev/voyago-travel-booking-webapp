@@ -62,7 +62,7 @@ const Navbar = ({ isLandingPage = true, showSideMenu = true }) => {
         {showSideMenu && (
           <>
             {/* Desktop Menu */}
-            <ul className="hidden md:flex items-center gap-6">
+            <ul className="hidden md:flex items-center gap-6 font-medium text-sm">
               <li>
                 <Link
                   href="/"
@@ -78,6 +78,15 @@ const Navbar = ({ isLandingPage = true, showSideMenu = true }) => {
                   className={`${pathname === "/about" ? "bg-primary/20 text-primary rounded-md px-2 py-1" : ""}`}
                 >
                   About Us
+                </Link>
+              </li>
+
+              <li>
+                <Link
+                  href="/hotels"
+                  className={`${pathname === "/hotels" ? "bg-primary/20 text-primary rounded-md px-2 py-1" : ""}`}
+                >
+                  Hotels
                 </Link>
               </li>
 

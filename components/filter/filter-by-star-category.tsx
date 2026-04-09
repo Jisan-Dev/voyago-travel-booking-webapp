@@ -56,7 +56,7 @@ const FilterByStarCategory = () => {
   return (
     <div>
       <h3 className="font-bold text-lg">Star Category</h3>
-      <form action="" className="flex flex-col gap-2 mt-2">
+      <form action="" className="flex flex-col gap-1 mt-2">
         <label htmlFor="fiveStar" className="flex items-center gap-2 cursor-pointer">
           <input
             className="w-4 h-4 accent-primary"
