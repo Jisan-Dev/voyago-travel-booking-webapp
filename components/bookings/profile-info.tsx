@@ -27,12 +27,6 @@ const ProfileInfo = async ({
         <div className="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 pb-10">
           <div className="flex items-center gap-6">
             {/* Profile Image */}
-            {/* <div className="relative">
-              <div className="w-24 h-24 rounded-full bg-linear-to-br from-primary to-primary/70 flex items-center justify-center text-white text-2xl font-bold ring-4 ring-primary/20">
-                JD
-              </div>
-            </div> */}
-
             <Avatar className="w-24 h-24 rounded-full bg-linear-to-br from-primary to-primary/70 flex items-center justify-center text-white text-2xl font-bold ring-4 ring-primary/20">
               <AvatarImage
                 src={user?.image || ""}
