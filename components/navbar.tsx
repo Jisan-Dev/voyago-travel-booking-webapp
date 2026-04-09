@@ -1,8 +1,10 @@
-import { auth } from "@/lib/auth";
+"use client";
+
+import { authClient } from "@/lib/auth-client";
 import { Menu } from "lucide-react";
 import * as motion from "motion/react-client";
-import { headers } from "next/headers";
 import Link from "next/link";
+import { usePathname } from "next/navigation";
 import Logout from "./auth/logout";
 import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
 import { Button } from "./ui/button";
@@ -14,8 +16,9 @@ import {
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
 
-const Navbar = async ({ isLandingPage = true, showSideMenu = true }) => {
-  const session = await auth.api.getSession({ headers: await headers() });
+const Navbar = ({ isLandingPage = true, showSideMenu = true }) => {
+  const { data: session } = authClient.useSession();
+  const pathname = usePathname();
 
   const user = session?.user;
 
@@ -61,15 +64,30 @@ const Navbar = async ({ isLandingPage = true, showSideMenu = true }) => {
             {/* Desktop Menu */}
             <ul className="hidden md:flex items-center gap-6">
               <li>
-                <Link href="/">Home</Link>
+                <Link
+                  href="/"
+                  className={`${pathname === "/" ? "bg-primary/20 text-primary rounded-md px-2 py-1" : ""}`}
+                >
+                  Home
+                </Link>
               </li>
 
               <li>
-                <Link href="/about">About Us</Link>
+                <Link
+                  href="/about"
+                  className={`${pathname === "/about" ? "bg-primary/20 text-primary rounded-md px-2 py-1" : ""}`}
+                >
+                  About Us
+                </Link>
               </li>
 
               <li>
-                <Link href="/bookings">Bookings</Link>
+                <Link
+                  href="/bookings"
+                  className={`${pathname === "/bookings" ? "bg-primary/20 text-primary rounded-md px-2 py-1" : ""}`}
+                >
+                  Bookings
+                </Link>
               </li>
 
               <li>
@@ -119,17 +137,26 @@ const Navbar = async ({ isLandingPage = true, showSideMenu = true }) => {
                   className="w-48 bg-white dark:bg-zinc-900 border border-zinc-200 dark:border-zinc-800 rounded-md shadow-lg p-3"
                 >
                   <DropdownMenuItem asChild>
-                    <Link href="/" className="w-full cursor-pointer">
+                    <Link
+                      href="/"
+                      className={`w-full cursor-pointer ${pathname === "/" ? "bg-primary/20 text-primary rounded-md" : ""}`}
+                    >
                       Home
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/about" className="w-full cursor-pointer">
+                    <Link
+                      href="/about"
+                      className={`w-full cursor-pointer ${pathname === "/about" ? "bg-primary/20 text-primary rounded-md" : ""}`}
+                    >
                       About Us
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
-                    <Link href="/bookings" className="w-full cursor-pointer">
+                    <Link
+                      href="/bookings"
+                      className={`w-full cursor-pointer ${pathname === "/bookings" ? "bg-primary/20 text-primary rounded-md" : ""}`}
+                    >
                       Bookings
                     </Link>
                   </DropdownMenuItem>
