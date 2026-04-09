@@ -34,12 +34,12 @@ const BookingsPage = async () => {
   const hasNoBookings = pastBookings.length === 0 && upcomingBookings.length === 0;
 
   return (
-    <div className="min-h-screen bg-background text-foreground pb-20">
-      <section className="pt-24 lg:pt-32 border-b border-border shadow-sm">
-        <div className="container max-w-5xl mx-auto px-4">
-          <ProfileInfo />
-        </div>
-      </section>
+    <div className="min-h-screen bg-background text-foreground py-20">
+      {/* <section className="pt-24 lg:pt-32 "> */}
+
+      <ProfileInfo bookings={bookings} upcomingBookings={upcomingBookings} />
+
+      {/* </section> */}
 
       <section className="py-12">
         <div className="container max-w-5xl mx-auto px-4">
