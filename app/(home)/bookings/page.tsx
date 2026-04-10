@@ -52,13 +52,9 @@ const BookingsPage = async () => {
               </p>
             </div>
           ) : (
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-10 lg:gap-14">
-              <div className="order-2 lg:order-1">
-                <PastBooking bookings={pastBookings} />
-              </div>
-              <div className="order-1 lg:order-2">
-                <UpcomingBooking bookings={upcomingBookings} />
-              </div>
+            <div className="space-y-20">
+              <UpcomingBooking bookings={upcomingBookings} />
+              <PastBooking bookings={pastBookings} />
             </div>
           )}
         </div>
