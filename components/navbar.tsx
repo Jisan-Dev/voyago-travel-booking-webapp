@@ -1,5 +1,6 @@
 "use client";
 
+import LoaderComponent from "@/app/(home)/loading";
 import { authClient } from "@/lib/auth-client";
 import { Menu } from "lucide-react";
 import * as motion from "motion/react-client";
@@ -17,7 +18,8 @@ import {
 } from "./ui/dropdown-menu";
 
 const Navbar = ({ isLandingPage = true, showSideMenu = true }) => {
-  const { data: session } = authClient.useSession();
+  const { data: session, isPending } = authClient.useSession();
+
   const pathname = usePathname();
 
   const user = session?.user;
@@ -27,6 +29,10 @@ const Navbar = ({ isLandingPage = true, showSideMenu = true }) => {
     .filter(Boolean)
     .map((name: string) => name[0].toUpperCase())
     .join("");
+
+  if (isPending) {
+    return <LoaderComponent />;
+  }
 
   return (
     <motion.nav

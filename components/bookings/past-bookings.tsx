@@ -1,12 +1,12 @@
 import { IBooking } from "@/types";
-import { Calendar, History } from "lucide-react";
+import { History, ListX } from "lucide-react";
+import Link from "next/link";
 import { TextEffect } from "../motion-primitives/text-effect";
 import { Button } from "../ui/button";
-import { Card } from "../ui/card";
 import BookingCard from "./booking-card";
 
 const PastBooking = ({ bookings }: { bookings: IBooking[] }) => {
-  if (!bookings || bookings.length === 0) return null;
+  // if (!bookings || bookings.length === 0) return null;
 
   return (
     <div>
@@ -17,7 +17,7 @@ const PastBooking = ({ bookings }: { bookings: IBooking[] }) => {
         </TextEffect>
       </h2>
       <TextEffect className="text-muted-foreground ml-7">
-        {`${bookings.length} booking${bookings.length !== 1 ? "s" : ""}`}
+        {`${bookings.length} past booking${bookings.length !== 1 ? "s" : ""}`}
       </TextEffect>
 
       {/* <div className="flex flex-col gap-4">
@@ -34,11 +34,16 @@ const PastBooking = ({ bookings }: { bookings: IBooking[] }) => {
             ))}
           </div>
         ) : (
-          <Card className="p-12 text-center">
-            <Calendar className="w-12 h-12 mx-auto text-muted-foreground/50 mb-4" />
-            <p className="text-muted-foreground">No past bookings</p>
-            <Button className="mt-4">Browse Hotels</Button>
-          </Card>
+          <div className="flex flex-col items-center justify-center text-center">
+            <ListX className="w-14 h-14 mb-4" />
+            <h2 className="text-2xl font-bold mb-2">No Bookings Yet</h2>
+            <p className="text-muted-foreground max-w-md">
+              No past bookings. Start exploring and book your next stay!
+            </p>
+            <Link href="/hotels">
+              <Button className="mt-4">Browse Hotels</Button>
+            </Link>
+          </div>
         )}
       </section>
     </div>
