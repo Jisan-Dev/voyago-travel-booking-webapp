@@ -10,9 +10,15 @@ export function proxy(request: NextRequest) {
 
     // ✅ include BOTH pathname + search params
     const fullPath = request.nextUrl.pathname + request.nextUrl.search;
+    // console.log({
+    //   fullPath,
+    //   encodedFullPath: decodeURIComponent(fullPath),
+    //   requestUrl: request.nextUrl.href,
+    //   searchParams: request.nextUrl.search,
+    // });
 
     // store the original path
-    loginUrl.searchParams.set("redirect", encodeURIComponent(fullPath));
+    loginUrl.searchParams.set("redirect", decodeURIComponent(fullPath));
     return NextResponse.redirect(loginUrl);
   }
 
