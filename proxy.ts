@@ -15,6 +15,7 @@ export function proxy(request: NextRequest) {
     //   encodedFullPath: decodeURIComponent(fullPath),
     //   requestUrl: request.nextUrl.href,
     //   searchParams: request.nextUrl.search,
+    //   searchP: request.nextUrl.searchParams,
     // });
 
     // store the original path
@@ -30,5 +31,5 @@ export function proxy(request: NextRequest) {
 
 export const config = {
   // matcher: ["/((?!api|_next/static|_next/image|favicon.ico|login|register|about|$).*)"],
-  matcher: ["/bookings", "/hotels", "/hotels/:path*", "/payment-success"],
+  matcher: ["/bookings", "/payment-success"],
 };

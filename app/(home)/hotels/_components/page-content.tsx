@@ -10,7 +10,7 @@ import { SearchContext } from "@/providers/SearchProvider";
 import { SearchContextWithFilters } from "@/types";
 import { refinedCategory } from "@/utils";
 import { IconFilter } from "@tabler/icons-react";
-import { redirect, useSearchParams } from "next/navigation";
+import { useSearchParams } from "next/navigation";
 import { Dispatch, SetStateAction, useContext, useEffect } from "react";
 import LoaderComponent from "../../loading";
 
@@ -22,9 +22,9 @@ const PageContent = () => {
 
   const { data, isPending } = authClient.useSession();
 
-  if (!data?.user && !isPending) {
-    redirect("/login");
-  }
+  // if (!data?.user && !isPending) {
+  //   redirect("/login");
+  // }
 
   // const { destination, checkin, checkout, category, price, sort } = await searchParams;
   const searchParams = useSearchParams();
