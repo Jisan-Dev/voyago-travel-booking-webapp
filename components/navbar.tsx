@@ -1,6 +1,5 @@
 "use client";
 
-import LoaderComponent from "@/app/(home)/loading";
 import { authClient } from "@/lib/auth-client";
 import { Menu } from "lucide-react";
 import * as motion from "motion/react-client";
@@ -16,6 +15,7 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "./ui/dropdown-menu";
+import { Skeleton } from "./ui/skeleton";
 
 const Navbar = ({ isLandingPage = true, showSideMenu = true }) => {
   const { data: session, isPending } = authClient.useSession();
@@ -29,10 +29,6 @@ const Navbar = ({ isLandingPage = true, showSideMenu = true }) => {
     .filter(Boolean)
     .map((name: string) => name[0].toUpperCase())
     .join("");
-
-  if (isPending) {
-    return <LoaderComponent />;
-  }
 
   return (
     <motion.nav
@@ -106,7 +102,12 @@ const Navbar = ({ isLandingPage = true, showSideMenu = true }) => {
               </li>
 
               <li>
-                {user ? (
+                {isPending ? (
+                  <div className="flex items-center gap-2">
+                    <Skeleton className="h-8 w-8 rounded-full" />
+                    <Skeleton className="h-4 w-24 rounded-md" />
+                  </div>
+                ) : user ? (
                   <div className="flex items-center gap-1">
                     <Avatar className="h-8 w-8">
                       <AvatarImage src={user?.image || ""} alt={user?.name || "User profile"} />
@@ -176,7 +177,12 @@ const Navbar = ({ isLandingPage = true, showSideMenu = true }) => {
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuSeparator className="bg-zinc-200 dark:bg-zinc-800" />
-                  {user ? (
+                  {isPending ? (
+                    <div className="px-0.5 py-1.5 flex items-center gap-2">
+                      <Skeleton className="h-6 w-6 rounded-full bg-zinc-200 dark:bg-zinc-800" />
+                      <Skeleton className="h-3.5 w-20 rounded-md bg-zinc-200 dark:bg-zinc-800" />
+                    </div>
+                  ) : user ? (
                     <>
                       <div className="px-0.5 py-1.5 text-sm flex items-center gap-1">
                         <Avatar className="h-6 w-6">

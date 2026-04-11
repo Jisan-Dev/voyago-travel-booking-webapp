@@ -12,7 +12,7 @@ export function proxy(request: NextRequest) {
     const fullPath = request.nextUrl.pathname + request.nextUrl.search;
 
     // store the original path
-    loginUrl.searchParams.set("redirect", fullPath);
+    loginUrl.searchParams.set("redirect", encodeURIComponent(fullPath));
     return NextResponse.redirect(loginUrl);
   }
 

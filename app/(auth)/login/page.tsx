@@ -8,7 +8,8 @@ import { SubmitEvent } from "react";
 export default function LoginPage() {
   const { data: session } = authClient.useSession();
   const searchParams = useSearchParams();
-  const redirectUser = searchParams.get("redirect") || "/";
+  const redirectUserPath = searchParams.get("redirect") || "/";
+  const redirectUser = decodeURIComponent(redirectUserPath);
 
   if (session && session?.user) redirect("/");
 
