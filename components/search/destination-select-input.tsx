@@ -32,7 +32,9 @@ const DestinationSelectInput = ({
     const fetchCities = async () => {
       try {
         setCitiesLoading(true);
-        const res = await fetch("/api/cities");
+        const res = await fetch("/api/cities", {
+          cache: "force-cache",
+        });
         const data = await res.json();
         setCities(data);
       } catch (error) {
