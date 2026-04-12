@@ -41,9 +41,9 @@ const ProfileInfo = async ({
               <h1 className="text-3xl font-bold text-foreground mb-1">{user?.name}</h1>
               <p className="text-muted-foreground mb-3">{user?.email}</p>
               <div className="flex gap-2">
-                <Button variant="outline" size="sm">
+                {/* <Button variant="outline" size="sm">
                   Account Settings
-                </Button>
+                </Button> */}
                 <Link href="/hotels">
                   <Button variant="outline" size="sm">
                     Explore Hotels
