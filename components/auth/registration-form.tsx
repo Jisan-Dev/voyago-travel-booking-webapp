@@ -2,6 +2,7 @@
 import { authClient } from "@/lib/auth-client";
 import { useRouter } from "next/navigation";
 import { SubmitEvent } from "react";
+import { toast } from "sonner";
 import { AuthForm } from "../auth-form";
 
 const RegistrationForm = () => {
@@ -22,6 +23,7 @@ const RegistrationForm = () => {
       },
       onError: (err) => {
         console.log("Error: ", err);
+        toast.error(err.error?.message || "Something went wrong");
       },
     });
     console.log("Response: ", res);
@@ -40,7 +42,10 @@ const RegistrationForm = () => {
       },
       {
         onSuccess: (ctx) => console.log("Demo login success:", ctx),
-        onError: (err) => console.log("Demo login error:", err),
+        onError: (err) => {
+          console.log("Demo login error:", err);
+          toast.error(err.error?.message || "Something went wrong");
+        },
       },
     );
   };

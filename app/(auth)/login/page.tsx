@@ -4,6 +4,7 @@ import { AuthForm } from "@/components/auth-form";
 import { authClient } from "@/lib/auth-client";
 import { redirect, useSearchParams } from "next/navigation";
 import { SubmitEvent } from "react";
+import { toast } from "sonner";
 
 export default function LoginPage() {
   const { data: session } = authClient.useSession();
@@ -32,6 +33,7 @@ export default function LoginPage() {
       },
       onError: (err) => {
         console.log("Error: ", err);
+        toast.error(err.error?.message || "Something went wrong");
       },
     });
   };
@@ -49,7 +51,10 @@ export default function LoginPage() {
       },
       {
         onSuccess: (ctx) => console.log("Demo login success:", ctx),
-        onError: (err) => console.log("Demo login error:", err),
+        onError: (err) => {
+          console.log("Demo login error:", err);
+          toast.error(err.error?.message || "Something went wrong");
+        },
       },
     );
   };
