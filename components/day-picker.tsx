@@ -37,6 +37,7 @@ export function DatePickerDemo({
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [date, setDate]);
+  console.log("date", typeof date);
 
   const today = new Date();
   today.setHours(0, 0, 0, 0);

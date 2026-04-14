@@ -36,10 +36,28 @@ export default function LoginPage() {
     });
   };
 
+  const handleDemoLogin = async () => {
+    if (!process.env.NEXT_PUBLIC_BASE_URL) {
+      throw new Error("NEXT_PUBLIC_BASE_URL is not defined in environment variables");
+    }
+
+    await authClient.signIn.email(
+      {
+        email: process.env.NEXT_PUBLIC_DEMO_EMAIL!,
+        password: process.env.NEXT_PUBLIC_DEMO_PASSWORD!,
+        callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}${redirectUser}`,
+      },
+      {
+        onSuccess: (ctx) => console.log("Demo login success:", ctx),
+        onError: (err) => console.log("Demo login error:", err),
+      },
+    );
+  };
+
   return (
     <div className="flex min-h-svh w-full items-center justify-center p-6 md:p-10">
       <div className="max-w-sm w-full">
-        <AuthForm mode="login" handleSubmit={handleSubmit} />
+        <AuthForm mode="login" handleSubmit={handleSubmit} onDemoLogin={handleDemoLogin} />
       </div>
     </div>
   );

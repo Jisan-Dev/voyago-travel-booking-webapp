@@ -12,10 +12,17 @@ import { Spinner } from "./ui/spinner";
 
 interface LoginFormProps extends React.ComponentProps<"div"> {
   handleSubmit?: (event: React.SubmitEvent<HTMLFormElement>) => Promise<void>;
+  onDemoLogin?: () => Promise<void>;
   mode: "login" | "register";
 }
 
-export function AuthForm({ className, handleSubmit, mode = "login", ...props }: LoginFormProps) {
+export function AuthForm({
+  className,
+  handleSubmit,
+  onDemoLogin,
+  mode = "login",
+  ...props
+}: LoginFormProps) {
   const { isPending } = authClient.useSession();
   return (
     <div className={cn("flex flex-col gap-6", className)} {...props}>
@@ -82,6 +89,27 @@ export function AuthForm({ className, handleSubmit, mode = "login", ...props }: 
                   Login with Google
                 </Button> */}
                 <SocialLogins mode={mode} />
+                {onDemoLogin && (
+                  <>
+                    <div className="relative my-2">
+                      <div className="absolute inset-0 flex items-center">
+                        <span className="w-full border-t" />
+                      </div>
+                      <div className="relative flex justify-center text-xs uppercase">
+                        <span className="bg-card px-2 text-muted-foreground">or</span>
+                      </div>
+                    </div>
+                    <Button
+                      type="button"
+                      variant="secondary"
+                      className="w-full"
+                      onClick={onDemoLogin}
+                      disabled={isPending}
+                    >
+                      🚀 Try Demo Account
+                    </Button>
+                  </>
+                )}
                 <FieldDescription className="text-center">
                   {mode === "login" ? (
                     <>

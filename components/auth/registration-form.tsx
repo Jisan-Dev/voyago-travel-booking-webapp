@@ -27,9 +27,27 @@ const RegistrationForm = () => {
     console.log("Response: ", res);
   }
 
+  const handleDemoLogin = async () => {
+    if (!process.env.NEXT_PUBLIC_BASE_URL) {
+      throw new Error("NEXT_PUBLIC_BASE_URL is not defined in environment variables");
+    }
+
+    await authClient.signIn.email(
+      {
+        email: process.env.NEXT_PUBLIC_DEMO_EMAIL!,
+        password: process.env.NEXT_PUBLIC_DEMO_PASSWORD!,
+        callbackURL: `${process.env.NEXT_PUBLIC_BASE_URL}`,
+      },
+      {
+        onSuccess: (ctx) => console.log("Demo login success:", ctx),
+        onError: (err) => console.log("Demo login error:", err),
+      },
+    );
+  };
+
   return (
     <>
-      <AuthForm handleSubmit={handleSubmit} mode="register" />
+      <AuthForm handleSubmit={handleSubmit} mode="register" onDemoLogin={handleDemoLogin} />
     </>
   );
 };
